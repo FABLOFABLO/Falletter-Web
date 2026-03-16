@@ -1,0 +1,20 @@
+<svg width="74" height="74" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="74" height="74" rx="10" fill="#3C2128"/>
+<g clip-path="url(#clip0_1_1362)">
+<circle cx="37" cy="37" r="20" fill="#FE5784"/>
+<circle cx="37" cy="37" r="18" fill="#3C2128"/>
+<circle cx="37" cy="37" r="15" fill="#FE5784"/>
+<line x1="37" y1="24" x2="37" y2="52" stroke="#3C2128" stroke-width="2"/>
+<line y1="-1" x2="32" y2="-1" transform="matrix(-1 0 0 1 53 38)" stroke="#3C2128" stroke-width="2"/>
+<line y1="-1" x2="34" y2="-1" transform="matrix(-0.694658 0.71934 0.71934 0.694658 49.4502 26)" stroke="#3C2128" stroke-width="2"/>
+<line y1="-1" x2="34" y2="-1" transform="matrix(-0.694658 -0.71934 -0.71934 0.694658 48.4385 50.2637)" stroke="#3C2128" stroke-width="2"/>
+<path d="M35.2178 22.8213C36.0324 24.1385 37.9676 24.1385 38.7822 22.8213L38.8594 22.6846L42.1973 16.3262C42.9311 14.9279 41.9169 13.2502 40.3379 13.25H33.6621C32.0831 13.2502 31.0689 14.9279 31.8027 16.3262L35.1406 22.6846L35.2178 22.8213Z" fill="#FE5784" stroke="#3C2128" stroke-width="3"/>
+<circle cx="37" cy="37" r="5" fill="#3C2128"/>
+<circle cx="37" cy="37" r="3" fill="#FE5784"/>
+</g>
+<defs>
+<clipPath id="clip0_1_1362">
+<rect width="43" height="43" fill="white" transform="translate(15 15)"/>
+</clipPath>
+</defs>
+</svg>
