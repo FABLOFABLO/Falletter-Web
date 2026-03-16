@@ -1,8 +1,27 @@
 import styled from 'styled-components'
-import ImgAppStore from '../assets/Footer/AppStore.svg'
-import ImgGooglePlay from '../assets/Footer/GooglePlay.svg'
-import ImgGithub from '../assets/Footer/Github.svg'
-import ImgNotion from '../assets/Footer/Notion.svg'
+import { Link } from 'react-router-dom'
+
+import ImgAppStore from '../assets/footer/app-store.svg'
+import ImgGooglePlay from '../assets/footer/google-play.svg'
+import ImgGithub from '../assets/footer/github.svg'
+import ImgNotion from '../assets/footer/notion.svg'
+
+const NAV_LINKS = [
+  { label: 'FABLO팀 소개', to: '/about' },
+  { label: '프로젝트 소개', to: '/introduce' },
+  { label: '동아리 부원 소개', to: '/members' },
+  { label: 'FAQ', to: '/faq' },
+]
+
+const SOCIAL_LINKS = [
+  { href: 'https://github.com/FABLOFABLO', img: ImgGithub, label: 'Github' },
+  { href: 'https://www.notion.so/FABLO-1b2c2dbb994380169b15cec16a0c9be2?source=copy_link', img: ImgNotion, label: 'Notion' },
+]
+
+const STORE_LINKS = [
+  { href: '#', img: ImgAppStore, label: 'App Store' },
+  { href: '#', img: ImgGooglePlay, label: 'Google Play' },
+]
 
 const Root = styled.footer`
   width: 100%;
@@ -57,19 +76,15 @@ const LinkList = styled.ul`
   gap: 10px;
 `
 
-const LinkItem = styled.li`
-  a {
-    font-family: Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    font-size: 13px;
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.2s;
+const NavLink = styled(Link)`
+  font-family: Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s;
 
-    &:hover {
-      color: #ff7a9d;
-    }
-  }
+  &:hover { color: #ff7a9d; }
 `
 
 const SocialRow = styled.div`
@@ -136,7 +151,6 @@ export function Footer() {
   return (
     <Root>
       <Inner>
-        {/* 로고 + 슬로건 */}
         <div>
           <LogoText>FABLO</LogoText>
           <Slogan>
@@ -145,46 +159,40 @@ export function Footer() {
           </Slogan>
         </div>
 
-        {/* 빠른 링크 */}
         <div>
           <ColTitle>빠른 링크</ColTitle>
           <LinkList>
-            <LinkItem><a href="#">FABLO팀 소개</a></LinkItem>
-            <LinkItem><a href="#">프로젝트 소개</a></LinkItem>
-            <LinkItem><a href="#">동아리 부원 소개</a></LinkItem>
-            <LinkItem><a href="#">FAQ</a></LinkItem>
+            {NAV_LINKS.map(({ label, to }) => (
+              <li key={to}>
+                <NavLink to={to}>{label}</NavLink>
+              </li>
+            ))}
           </LinkList>
         </div>
 
-        {/* 커뮤니티 - 소셜 아이콘 */}
         <div>
           <ColTitle>커뮤니티</ColTitle>
           <SocialRow>
-            <SocialBtn href="#" aria-label="Github">
-              <img src={ImgGithub} alt="Github" />
-            </SocialBtn>
-            <SocialBtn href="#" aria-label="Notion">
-              <img src={ImgNotion} alt="Notion" />
-            </SocialBtn>
+            {SOCIAL_LINKS.map(({ href, img, label }) => (
+              <SocialBtn key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+                <img src={img} alt={label} />
+              </SocialBtn>
+            ))}
           </SocialRow>
         </div>
 
-        {/* 스토어 */}
         <StoreCol>
-          <StoreBtn href="#" aria-label="App Store">
-            <img src={ImgAppStore} alt="Download on the App Store" />
-          </StoreBtn>
-          <StoreBtn href="#" aria-label="Google Play">
-            <img src={ImgGooglePlay} alt="Get it on Google Play" />
-          </StoreBtn>
+          {STORE_LINKS.map(({ href, img, label }) => (
+            <StoreBtn key={label} href={href} aria-label={label}>
+              <img src={img} alt={label} />
+            </StoreBtn>
+          ))}
         </StoreCol>
       </Inner>
 
       <Bottom>
         <Divider />
-        <Copyright>
-          @2026 FABLO Innovation club. All right reserved
-        </Copyright>
+        <Copyright>@2026 FABLO Innovation club. All right reserved</Copyright>
       </Bottom>
     </Root>
   )
