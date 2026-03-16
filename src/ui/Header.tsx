@@ -1,9 +1,13 @@
 import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
-import logoUrl from '../assets/Logo.svg'
+import logoUrl from '../assets/logo.svg'
 
-const LOGO_W = 141.82 * 0.7
-const LOGO_H = 48 * 0.7
+const NAV_LINKS = [
+  { to: '/about',     label: '팀 소개',      prefix: 'FABLO' },
+  { to: '/introduce', label: '프로젝트 소개', prefix: null },
+  { to: '/members',   label: '동아리 부원 소개', prefix: null },
+  { to: '/faq',       label: 'FAQ',          prefix: null },
+]
 
 const Root = styled.header`
   position: sticky;
@@ -34,8 +38,8 @@ const Brand = styled(Link)`
 
 const LogoImg = styled.img`
   display: block;
-  width: ${LOGO_W}px;
-  height: ${LOGO_H}px;
+  width: 99px;
+  height: 34px;
 `
 
 const Nav = styled.nav`
@@ -61,10 +65,7 @@ const StyledNavLink = styled(Link)<{ $active?: boolean }>`
     color: ${(p) => (p.$active ? '#ff7a9d' : 'rgba(255,255,255,0.92)')};
   }
 
-  &:hover {
-    color: #ff7a9d;
-  }
-
+  &:hover,
   &:hover span {
     color: #ff7a9d;
   }
@@ -92,18 +93,12 @@ export function TopNav() {
         </Brand>
 
         <Nav aria-label="메인 메뉴">
-          <StyledNavLink to="/about" $active={pathname === '/about'}>
-            <Word>FABLO</Word> 팀 소개
-          </StyledNavLink>
-          <StyledNavLink to="/introduce" $active={pathname === '/introduce'}>
-            프로젝트 소개
-          </StyledNavLink>
-          <StyledNavLink to="/members" $active={pathname === '/members'}>
-            동아리 부원 소개
-          </StyledNavLink>
-          <StyledNavLink to="/faq" $active={pathname === '/faq'}>
-            FAQ
-          </StyledNavLink>
+          {NAV_LINKS.map(({ to, label, prefix }) => (
+            <StyledNavLink key={to} to={to} $active={pathname === to}>
+              {prefix && <Word>{prefix}</Word>}
+              {label}
+            </StyledNavLink>
+          ))}
         </Nav>
       </Inner>
     </Root>
