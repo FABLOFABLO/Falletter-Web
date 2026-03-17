@@ -191,6 +191,7 @@ export function TopNav() {
 
   return (
     <>
+      <Overlay $open={menuOpen} onClick={closeMenu} />
       <Root>
         <Inner>
           <Brand to="/" aria-label="홈으로" onClick={closeMenu}>
@@ -213,7 +214,6 @@ export function TopNav() {
           </Nav>
         </Inner>
       </Root>
-      <Overlay $open={menuOpen} onClick={closeMenu} />
     </>
   )
 }
