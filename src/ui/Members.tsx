@@ -77,6 +77,29 @@ const GRADUATED: Generation[] = [
 
 const GEN_LABELS = ['10기', '11기']
 
+function useScrollSpy(count: number, enabled: boolean) {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const refs = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    if (!enabled) return
+    const observers = refs.current.map((el, i) => {
+      if (!el) return null
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveIdx(i) },
+        { threshold: 0.1, rootMargin: '-20% 0px -20% 0px' }
+      )
+      obs.observe(el)
+      return obs
+    })
+    return () => observers.forEach((obs) => obs?.disconnect())
+  }, [enabled, count])
+
+  useEffect(() => { setActiveIdx(0) }, [enabled])
+
+  return { activeIdx, refs }
+}
+
 const Root = styled.section`
   width: 100%;
   background: #0b0b0d;
@@ -132,8 +155,12 @@ const PageSubTitle = styled.p`
   color: #b7b7b7;
 `
 
-const GenSection = styled.div<{ $last?: boolean }>`
-  padding: 20px 0 ${(p) => (p.$last ? '40px' : '200px')};
+const GenSection = styled.div`
+  padding: 20px 0 200px;
+`
+
+const LastGenSection = styled(GenSection)`
+  padding-bottom: 40px;
 `
 
 const GenTitle = styled.h2`
@@ -145,13 +172,13 @@ const GenTitle = styled.h2`
   color: #FF9BBB;
 `
 
-const MemberGrid = styled.div<{ $cols: number; $mb?: number }>`
+const MemberGrid = styled.div<{ $cols: number }>`
   display: grid;
   grid-template-columns: repeat(${(p) => p.$cols}, 140px);
   justify-content: center;
   gap: 60px 80px;
   max-width: 900px;
-  margin: 0 auto ${(p) => (p.$mb ? `${p.$mb}px` : '0')};
+  margin: 0 auto;
   padding: 0 60px;
 `
 
@@ -227,6 +254,10 @@ const IndDot = styled.button<{ $active: boolean }>`
   transition: all 0.3s ease;
 `
 
+const SpacedGrid = styled(MemberGrid)`
+  margin-bottom: 60px;
+`
+
 function MemberCardItem({ member }: { member: Member }) {
   return (
     <MemberCard>
@@ -241,40 +272,16 @@ function MemberCardItem({ member }: { member: Member }) {
   )
 }
 
-function useGenObserver(enabled: boolean, dep: unknown) {
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
-  const [activeGen, setActiveGen] = useState(0)
-
-  useEffect(() => {
-    setActiveGen(0)
-    sectionRefs.current = []
-  }, [dep])
-
-  useEffect(() => {
-    if (!enabled) return
-    const observers = sectionRefs.current.map((el, i) => {
-      if (!el) return null
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveGen(i) },
-        { threshold: 0.4 }
-      )
-      obs.observe(el)
-      return obs
-    })
-    return () => observers.forEach((obs) => obs?.disconnect())
-  }, [enabled, dep])
-
-  return { sectionRefs, activeGen }
-}
-
 export function Members() {
   const [tab, setTab] = useState<'current' | 'graduated'>('current')
-  const isCurrent     = tab === 'current'
 
-  const { sectionRefs, activeGen } = useGenObserver(isCurrent, tab)
+  const isCurrent   = tab === 'current'
+  const titlePrefix = isCurrent ? '동아리' : '졸업생'
+
+  const { activeIdx, refs } = useScrollSpy(GEN_LABELS.length, isCurrent)
 
   const scrollToGen = (i: number) => {
-    sectionRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    refs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
   return (
@@ -286,33 +293,35 @@ export function Members() {
         </TabWrap>
       </TabRow>
 
-      <PageTitle>{isCurrent ? '동아리' : '졸업생'} <span>부원</span> 소개</PageTitle>
+      <PageTitle>{titlePrefix} <span>부원</span> 소개</PageTitle>
       {isCurrent && <PageSubTitle>FABLO의 멋진 멤버들을 소개합니다.</PageSubTitle>}
 
       {isCurrent ? (
         <>
-          <GenSection ref={(el) => { sectionRefs.current[0] = el }}>
+          {/* 10기 */}
+          <GenSection ref={(el) => { refs.current[0] = el }}>
             <GenTitle>10기</GenTitle>
             <MemberGrid $cols={CURRENT[0].cols}>
               {CURRENT[0].members.map((m) => <MemberCardItem key={m.name} member={m} />)}
             </MemberGrid>
           </GenSection>
 
-          <GenSection $last ref={(el) => { sectionRefs.current[1] = el }}>
+          {/* 11기 */}
+          <LastGenSection ref={(el) => { refs.current[1] = el }}>
             <GenTitle>11기</GenTitle>
-            <MemberGrid $cols={CURRENT[1].cols} $mb={60}>
+            <SpacedGrid $cols={CURRENT[1].cols}>
               {CURRENT[1].members.map((m) => <MemberCardItem key={m.name} member={m} />)}
-            </MemberGrid>
+            </SpacedGrid>
             <MemberGrid $cols={CURRENT[2].cols}>
               {CURRENT[2].members.map((m) => <MemberCardItem key={m.name} member={m} />)}
             </MemberGrid>
-          </GenSection>
+          </LastGenSection>
 
           <Indicator>
             {GEN_LABELS.map((label, i) => (
               <IndDot
                 key={label}
-                $active={activeGen === i}
+                $active={activeIdx === i}
                 onClick={() => scrollToGen(i)}
                 aria-label={label}
               />
