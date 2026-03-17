@@ -15,7 +15,7 @@ const NAV_LINKS = [
 
 const SOCIAL_LINKS = [
   { href: 'https://github.com/FABLOFABLO', img: ImgGithub, label: 'Github' },
-  { href: 'https://www.notion.so/FABLO-1b2c2dbb994380169b15cec16a0c9be2?source=copy_link', img: ImgNotion, label: 'Notion' },
+  { href: 'https://judicious-dungeon-dd4.notion.site/FABLO-72930ed570904cbb87a498b54c3ca756?source=copy_link', img: ImgNotion, label: 'Notion' },
 ]
 
 const STORE_LINKS = [
