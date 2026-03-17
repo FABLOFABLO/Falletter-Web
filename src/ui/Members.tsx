@@ -1,20 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
-import JiyunImg from '../assets/member/정지윤.png'
-import DoeunImg from '../assets/member/김도은.png'
-import JiyaImg from '../assets/member/이지아.png'
-import SuinImg from '../assets/member/김수인.png'
-import KangheeImg from '../assets/member/이강희.png'
+import JiyunImg    from '../assets/member/정지윤.png'
+import DoeunImg    from '../assets/member/김도은.png'
+import JiyaImg     from '../assets/member/이지아.png'
+import SuinImg     from '../assets/member/김수인.png'
+import KangheeImg  from '../assets/member/이강희.png'
 import JiyunKimImg from '../assets/member/김지윤.png'
-import SuhyunImg from '../assets/member/권수현.png'
+import SuhyunImg   from '../assets/member/권수현.png'
 
-import HaeunImg from '../assets/member/유하은.png'
+import HaeunImg     from '../assets/member/유하은.png'
 import MyeongjinImg from '../assets/member/김명진.png'
-import JiwooImg from '../assets/member/유지우.png'
-import HaeminImg from '../assets/member/강해민.png'
-import NakyungImg from '../assets/member/이나경.png'
-import GaeunImg from '../assets/member/김가은.png'
+import JiwooImg     from '../assets/member/유지우.png'
+import HaeminImg    from '../assets/member/강해민.png'
+import NakyungImg   from '../assets/member/이나경.png'
+import GaeunImg     from '../assets/member/김가은.png'
 
 import CrownImg from '../assets/member/crown.svg'
 
@@ -75,11 +75,13 @@ const GRADUATED: Generation[] = [
   },
 ]
 
+const GEN_LABELS = ['10기', '11기']
+
 const Root = styled.section`
   width: 100%;
   background: #0b0b0d;
   min-height: 100vh;
-  padding: 60px 0 120px;
+  padding: 20px 0 120px;
 `
 
 const TabRow = styled.div`
@@ -93,8 +95,6 @@ const TabWrap = styled.div`
   background: #1a1a1e;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 999px;
-  padding: 0;
-  gap: 0;
   overflow: hidden;
 `
 
@@ -120,9 +120,7 @@ const PageTitle = styled.h1`
   font-weight: 700;
   color: #ffffff;
 
-  span {
-    color: #FF7A9D;
-  }
+  span { color: #FF7A9D; }
 `
 
 const PageSubTitle = styled.p`
@@ -133,9 +131,12 @@ const PageSubTitle = styled.p`
   font-weight: 400;
   color: #b7b7b7;
 `
-
 const GenSection = styled.div`
-  margin-bottom: 60px;
+  padding: 20px 0 200px;
+`
+
+const LastGenSection = styled(GenSection)`
+  padding-bottom: 40px;
 `
 
 const GenTitle = styled.h2`
@@ -207,52 +208,127 @@ const MemberEmail = styled.span`
   color: #888888;
 `
 
-export function Members() {
-  const [tab, setTab] = useState<'current' | 'graduated'>('current')
+const Indicator = styled.div`
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+`
 
-  const data = tab === 'current' ? CURRENT : GRADUATED
-  const titlePrefix = tab === 'current' ? '동아리' : '졸업생'
+const IndDot = styled.button<{ $active: boolean }>`
+  width: 6px;
+  height: ${(p) => (p.$active ? 28 : 6)}px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  background: ${(p) => (p.$active ? '#FF9BBB' : 'rgba(255,155,187,0.3)')};
+  transition: all 0.3s ease;
+`
+
+function MemberCardItem({ member }: { member: Member }) {
+  return (
+    <MemberCard>
+      <AvatarWrap>
+        {member.isLeader && <Crown src={CrownImg} alt="crown" />}
+        <Avatar src={member.image} alt={member.name} />
+      </AvatarWrap>
+      <MemberRole>{member.role}</MemberRole>
+      <MemberName>{member.name}</MemberName>
+      {member.email && <MemberEmail>{member.email}</MemberEmail>}
+    </MemberCard>
+  )
+}
+
+export function Members() {
+  const [tab, setTab]         = useState<'current' | 'graduated'>('current')
+  const [activeGen, setActiveGen] = useState(0)
+  const sectionRefs           = useRef<(HTMLDivElement | null)[]>([])
+
+  const isCurrent   = tab === 'current'
+  const titlePrefix = isCurrent ? '동아리' : '졸업생'
+
+  useEffect(() => {
+    if (!isCurrent) return
+    const observers = sectionRefs.current.map((el, i) => {
+      if (!el) return null
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveGen(i) },
+        { threshold: 0.4 }
+      )
+      obs.observe(el)
+      return obs
+    })
+    return () => observers.forEach((obs) => obs?.disconnect())
+  }, [isCurrent, tab])
+
+  useEffect(() => {
+    setActiveGen(0)
+    sectionRefs.current = []
+  }, [tab])
+
+  const scrollToGen = (i: number) => {
+    sectionRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
 
   return (
     <Root>
       <TabRow>
         <TabWrap>
-          <Tab $active={tab === 'current'} onClick={() => setTab('current')}>
-            재학생
-          </Tab>
-          <Tab $active={tab === 'graduated'} onClick={() => setTab('graduated')}>
-            졸업생
-          </Tab>
+          <Tab $active={isCurrent}  onClick={() => setTab('current')}>재학생</Tab>
+          <Tab $active={!isCurrent} onClick={() => setTab('graduated')}>졸업생</Tab>
         </TabWrap>
       </TabRow>
 
-      <PageTitle>
-        {titlePrefix} <span>부원</span> 소개
-      </PageTitle>
-      {tab === 'current' && (
-        <PageSubTitle>FABLO의 멋진 멤버들을 소개합니다.</PageSubTitle>
-      )}
+      <PageTitle>{titlePrefix} <span>부원</span> 소개</PageTitle>
+      {isCurrent && <PageSubTitle>FABLO의 멋진 멤버들을 소개합니다.</PageSubTitle>}
 
-      {data.map((gen, idx) => (
-        <GenSection key={idx}>
-          {gen.gen && <GenTitle>{gen.gen}</GenTitle>}
-          <MemberGrid $cols={gen.cols}>
-            {gen.members.map((member) => (
-              <MemberCard key={member.name}>
-                <AvatarWrap>
-                  {member.isLeader && (
-                    <Crown src={CrownImg} alt="crown" />
-                  )}
-                  <Avatar src={member.image} alt={member.name} />
-                </AvatarWrap>
-                <MemberRole>{member.role}</MemberRole>
-                <MemberName>{member.name}</MemberName>
-                {member.email && <MemberEmail>{member.email}</MemberEmail>}
-              </MemberCard>
+      {isCurrent ? (
+        <>
+          {/* 10기 */}
+          <GenSection ref={(el) => { sectionRefs.current[0] = el }}>
+            <GenTitle>10기</GenTitle>
+            <MemberGrid $cols={CURRENT[0].cols}>
+              {CURRENT[0].members.map((m) => <MemberCardItem key={m.name} member={m} />)}
+            </MemberGrid>
+          </GenSection>
+
+          {/* 11기 */}
+          <LastGenSection ref={(el) => { sectionRefs.current[1] = el }}>
+            <GenTitle>11기</GenTitle>
+            <MemberGrid $cols={CURRENT[1].cols} style={{ marginBottom: 60 }}>
+              {CURRENT[1].members.map((m) => <MemberCardItem key={m.name} member={m} />)}
+            </MemberGrid>
+            <MemberGrid $cols={CURRENT[2].cols}>
+              {CURRENT[2].members.map((m) => <MemberCardItem key={m.name} member={m} />)}
+            </MemberGrid>
+          </LastGenSection>
+
+          <Indicator>
+            {GEN_LABELS.map((label, i) => (
+              <IndDot
+                key={label}
+                $active={activeGen === i}
+                onClick={() => scrollToGen(i)}
+                aria-label={label}
+              />
             ))}
-          </MemberGrid>
-        </GenSection>
-      ))}
+          </Indicator>
+        </>
+      ) : (
+        GRADUATED.map((gen, idx) => (
+          <GenSection key={idx}>
+            {gen.gen && <GenTitle>{gen.gen}</GenTitle>}
+            <MemberGrid $cols={gen.cols}>
+              {gen.members.map((m) => <MemberCardItem key={m.name} member={m} />)}
+            </MemberGrid>
+          </GenSection>
+        ))
+      )}
     </Root>
   )
 }
