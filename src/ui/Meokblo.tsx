@@ -110,7 +110,7 @@ const Card = styled.article<{ $indent: number }>`
   padding: 0 16px 0 ${(p) => p.$indent}px;
 
   ${media.mobile} {
-    padding: 0;
+    padding: 0 4px;
   }
 `
 
@@ -119,6 +119,10 @@ const DashedBorder = styled.div`
   flex-direction: row;
   align-items: flex-start;
   gap: 10px;
+
+  ${media.mobile} {
+    gap: 0;
+  }
 `
 
 const DashedLineImg = styled.img<{ $h: number }>`
@@ -142,10 +146,8 @@ const CardTitle = styled.h3`
   color: #fff;
 
   ${media.mobile} {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 13px;
+    margin: 0 0 6px;
   }
 `
 
@@ -156,8 +158,8 @@ const ImgGrid = styled.div<{ $cols: number; $size: number }>`
   max-width: 100%;
 
   ${media.mobile} {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 6px;
+    grid-template-columns: repeat(${(p) => p.$cols}, 1fr);
+    gap: 4px;
   }
 `
 
@@ -214,7 +216,7 @@ const MonthCell = styled.div<{ $indent: number }>`
   padding: 5px 0 0 ${(p) => p.$indent}px;
 
   ${media.mobile} {
-    padding: 0;
+    padding: 4px 4px 0;
   }
 `
 
@@ -225,8 +227,7 @@ const Month = styled.p`
   color: #ff7a9d;
 
   ${media.mobile} {
-    display: inline-block;
-    margin-right: 8px;
+    font-size: 12px;
   }
 `
 
