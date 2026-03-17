@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import ImgModak    from '../assets/meokblo/모닭.svg'
-import ImgGongCha1 from '../assets/meokblo/모닭.svg'
+import ImgGongCha1 from '../assets/meokblo/공차.svg'
 import ImgGongCha2 from '../assets/meokblo/공차2.svg'
 import ImgCompose  from '../assets/meokblo/컴포즈.svg'
 import ImgYoa      from '../assets/meokblo/요아정.svg'
