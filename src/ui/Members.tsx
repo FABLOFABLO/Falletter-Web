@@ -17,6 +17,7 @@ import NakyungImg   from '../assets/member/이나경.png'
 import GaeunImg     from '../assets/member/김가은.png'
 
 import CrownImg from '../assets/member/crown.svg'
+import { media } from '../styles/GlobalStyle'
 
 interface Member {
   name: string
@@ -105,12 +106,21 @@ const Root = styled.section`
   background: #0b0b0d;
   min-height: 100vh;
   padding: 20px 0 120px;
+
+  ${media.mobile} {
+    padding: 20px 0 80px;
+  }
 `
 
 const TabRow = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 60px;
+
+  ${media.mobile} {
+    margin-bottom: 40px;
+    padding: 0 24px;
+  }
 `
 
 const TabWrap = styled.div`
@@ -119,6 +129,11 @@ const TabWrap = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 999px;
   overflow: hidden;
+
+  ${media.mobile} {
+    width: 100%;
+    max-width: 320px;
+  }
 `
 
 const Tab = styled.button<{ $active: boolean }>`
@@ -133,6 +148,11 @@ const Tab = styled.button<{ $active: boolean }>`
   transition: all 0.2s;
   background: ${(p) => (p.$active ? '#FE5784' : 'transparent')};
   color: ${(p) => (p.$active ? '#ffffff' : 'rgba(255,255,255,0.5)')};
+
+  ${media.mobile} {
+    padding: 10px 30px;
+    font-size: 14px;
+  }
 `
 
 const PageTitle = styled.h1`
@@ -144,6 +164,11 @@ const PageTitle = styled.h1`
   color: #ffffff;
 
   span { color: #FF7A9D; }
+
+  ${media.mobile} {
+    font-size: 26px;
+    padding: 0 24px;
+  }
 `
 
 const PageSubTitle = styled.p`
@@ -153,10 +178,20 @@ const PageSubTitle = styled.p`
   font-size: 14px;
   font-weight: 400;
   color: #b7b7b7;
+
+  ${media.mobile} {
+    font-size: 13px;
+    margin: 0 0 50px;
+    padding: 0 24px;
+  }
 `
 
 const GenSection = styled.div`
   padding: 20px 0 200px;
+
+  ${media.mobile} {
+    padding: 20px 0 100px;
+  }
 `
 
 const LastGenSection = styled(GenSection)`
@@ -170,6 +205,11 @@ const GenTitle = styled.h2`
   font-size: 24px;
   font-weight: 700;
   color: #FF9BBB;
+
+  ${media.mobile} {
+    font-size: 20px;
+    margin: 0 0 32px;
+  }
 `
 
 const MemberGrid = styled.div<{ $cols: number }>`
@@ -180,6 +220,13 @@ const MemberGrid = styled.div<{ $cols: number }>`
   max-width: 900px;
   margin: 0 auto;
   padding: 0 60px;
+
+  ${media.mobile} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 24px;
+    padding: 0 24px;
+    max-width: 100%;
+  }
 `
 
 const MemberCard = styled.div`
@@ -187,12 +234,21 @@ const MemberCard = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 12px;
+
+  ${media.mobile} {
+    gap: 10px;
+  }
 `
 
 const AvatarWrap = styled.div`
   position: relative;
   width: 140px;
   height: 140px;
+
+  ${media.mobile} {
+    width: 110px;
+    height: 110px;
+  }
 `
 
 const Crown = styled.img`
@@ -201,6 +257,11 @@ const Crown = styled.img`
   left: 50%;
   transform: translateX(-50%);
   width: 40px;
+
+  ${media.mobile} {
+    top: -22px;
+    width: 32px;
+  }
 `
 
 const Avatar = styled.img`
@@ -209,6 +270,11 @@ const Avatar = styled.img`
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #FF9BBB;
+
+  ${media.mobile} {
+    width: 110px;
+    height: 110px;
+  }
 `
 
 const MemberRole = styled.span`
@@ -216,6 +282,10 @@ const MemberRole = styled.span`
   font-size: 13px;
   font-weight: 400;
   color: #b7b7b7;
+
+  ${media.mobile} {
+    font-size: 12px;
+  }
 `
 
 const MemberName = styled.span`
@@ -223,6 +293,10 @@ const MemberName = styled.span`
   font-size: 16px;
   font-weight: 700;
   color: #ffffff;
+
+  ${media.mobile} {
+    font-size: 15px;
+  }
 `
 
 const MemberEmail = styled.span`
@@ -230,6 +304,11 @@ const MemberEmail = styled.span`
   font-size: 12px;
   font-weight: 300;
   color: #888888;
+  text-align: center;
+
+  ${media.mobile} {
+    font-size: 11px;
+  }
 `
 
 const Indicator = styled.div`
@@ -241,6 +320,10 @@ const Indicator = styled.div`
   flex-direction: column;
   gap: 10px;
   z-index: 100;
+
+  ${media.mobile} {
+    display: none;
+  }
 `
 
 const IndDot = styled.button<{ $active: boolean }>`
@@ -256,6 +339,10 @@ const IndDot = styled.button<{ $active: boolean }>`
 
 const SpacedGrid = styled(MemberGrid)`
   margin-bottom: 60px;
+
+  ${media.mobile} {
+    margin-bottom: 40px;
+  }
 `
 
 function MemberCardItem({ member }: { member: Member }) {

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 import ImgGithub from '../assets/about/github.svg'
 import ImgNotion from '../assets/about/notion.svg'
+import { media } from '../styles/GlobalStyle'
 
 const CARDS = [
   {
@@ -26,6 +27,10 @@ const Root = styled.section`
   width: 100%;
   background: #0b0b0d;
   padding: 140px 0 160px;
+
+  ${media.mobile} {
+    padding: 80px 0 100px;
+  }
 `
 
 const Title = styled.h2`
@@ -37,6 +42,12 @@ const Title = styled.h2`
   text-align: center;
 
   span { color: #ff7a9d; }
+
+  ${media.mobile} {
+    font-size: 26px;
+    margin: 0 0 60px;
+    padding: 0 24px;
+  }
 `
 
 const CardRow = styled.div`
@@ -45,6 +56,13 @@ const CardRow = styled.div`
   gap: 60px;
   max-width: 950px;
   margin: 0 auto;
+
+  ${media.mobile} {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 0 24px;
+  }
 `
 
 const Card = styled.div`
@@ -55,6 +73,12 @@ const Card = styled.div`
   padding: 36px 32px;
   display: flex;
   flex-direction: column;
+
+  ${media.mobile} {
+    width: 100%;
+    max-width: 380px;
+    padding: 28px 24px;
+  }
 `
 
 const IconWrap = styled.div<{ $whiteBg: boolean }>`
@@ -79,6 +103,11 @@ const CardTitle = styled.h3`
   font-weight: 700;
   font-size: 18px;
   color: #ffffff;
+
+  ${media.mobile} {
+    font-size: 17px;
+    margin: 14px 0 12px;
+  }
 `
 
 const CardDesc = styled.p`
@@ -89,6 +118,11 @@ const CardDesc = styled.p`
   color: #b7b7b7;
   line-height: 1.6;
   white-space: pre-line;
+
+  ${media.mobile} {
+    font-size: 13px;
+    margin: 0 0 24px;
+  }
 `
 
 const LinkBtn = styled.a`
@@ -105,6 +139,12 @@ const LinkBtn = styled.a`
   color: #ffffff;
   text-decoration: underline;
   cursor: pointer;
+
+  ${media.mobile} {
+    width: 140px;
+    height: 36px;
+    font-size: 12px;
+  }
 `
 
 export function About() {

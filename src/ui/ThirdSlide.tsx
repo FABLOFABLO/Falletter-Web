@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 import ThirdImg     from '../assets/slide/Third.svg'
 import FalletterImg from '../assets/slide/falletter.svg'
+import { media } from '../styles/GlobalStyle'
 
 const Root = styled.section`
   width: 100%;
@@ -21,6 +22,12 @@ const SlideImg = styled.img<{ $side: 'left' | 'right' }>`
   width: auto;
   object-fit: contain;
   pointer-events: none;
+
+  ${media.mobile} {
+    left: ${(p) => (p.$side === 'left' ? '-20%' : 'auto')};
+    right: ${(p) => (p.$side === 'right' ? '20px' : 'auto')};
+    height: ${(p) => (p.$side === 'left' ? '100%' : '60%')};
+  }
 `
 
 export function ThirdSlide() {

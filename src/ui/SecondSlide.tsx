@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 import PhoneLeft  from '../assets/slide/iPhone 16.svg'
 import PhoneRight from '../assets/slide/iPhone 15 Pro.svg'
+import { media } from '../styles/GlobalStyle'
 
 const Root = styled.section`
   width: 100%;
@@ -48,6 +49,13 @@ const PhoneImg = styled.img<{ $side: 'left' | 'right' }>`
   object-fit: contain;
   pointer-events: none;
   z-index: 1;
+
+  ${media.mobile} {
+    opacity: 0.3;
+    width: ${(p) => (p.$side === 'left' ? '300px' : '260px')};
+    left: ${(p) => (p.$side === 'left' ? '-50px' : 'auto')};
+    right: ${(p) => (p.$side === 'right' ? '-30px' : 'auto')};
+  }
 `
 
 const TextWrap = styled.div`
@@ -59,6 +67,10 @@ const TextWrap = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
+
+  ${media.mobile} {
+    padding: 0 24px;
+  }
 `
 
 const Heading = styled.h1`
@@ -69,6 +81,10 @@ const Heading = styled.h1`
   line-height: 1.4;
   color: #ffffff;
   text-align: center;
+
+  ${media.mobile} {
+    font-size: 20px;
+  }
 `
 
 const Highlight = styled.span`
@@ -83,6 +99,10 @@ const Sub = styled.p`
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   text-align: center;
+
+  ${media.mobile} {
+    font-size: 13px;
+  }
 `
 
 export function SecondSlide() {
