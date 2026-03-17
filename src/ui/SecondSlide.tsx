@@ -10,6 +10,12 @@ const Root = styled.section`
   background: #0b0b0d;
   overflow: hidden;
   position: relative;
+
+  ${media.mobile} {
+    height: auto;
+    min-height: 200px;
+    padding: 32px 0;
+  }
 `
 
 const GradCenter = styled.div`

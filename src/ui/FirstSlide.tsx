@@ -15,6 +15,11 @@ const Wrapper = styled.div`
   position: relative;
   width: 100%;
   height: 240px;
+
+  ${media.mobile} {
+    height: auto;
+    min-height: 200px;
+  }
 `
 
 const Root = styled.section`
@@ -23,6 +28,11 @@ const Root = styled.section`
   background: #0b0b0d;
   overflow: hidden;
   position: relative;
+
+  ${media.mobile} {
+    height: auto;
+    min-height: 200px;
+  }
 `
 
 const GradLeft = styled.div`
@@ -64,9 +74,10 @@ const Inner = styled.div`
 
   ${media.mobile} {
     grid-template-columns: 1fr;
-    padding: 0 24px 32px;
-    gap: 20px;
+    padding: 32px 24px;
+    gap: 16px;
     align-items: center;
+    height: auto;
   }
 `
 
@@ -80,8 +91,9 @@ const Heading = styled.h1`
   white-space: pre-line;
 
   ${media.mobile} {
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
+    line-height: 1.5;
   }
 `
 
@@ -113,7 +125,7 @@ const Block = styled.img`
     drop-shadow(0 0 20px rgba(255, 110, 168, 0.3));
 
   ${media.mobile} {
-    width: 100px;
+    width: 80px;
   }
 `
 
@@ -125,9 +137,7 @@ const StarWrap = styled.div`
   z-index: 2;
 
   ${media.mobile} {
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
+    display: none;
   }
 `
 
