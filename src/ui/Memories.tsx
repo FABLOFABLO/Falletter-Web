@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-import Img1 from '../assets/Memories/1.svg'
-import Img2 from '../assets/Memories/2.svg'
-import Img3 from '../assets/Memories/3.svg'
-import Img4 from '../assets/Memories/4.svg'
-import Img5 from '../assets/Memories/5.svg'
-import Img6 from '../assets/Memories/6.svg'
-import Img7 from '../assets/Memories/7.svg'
-import Img8 from '../assets/Memories/8.svg'
+import Img1 from '../assets/memories/1.svg'
+import Img2 from '../assets/memories/2.svg'
+import Img3 from '../assets/memories/3.svg'
+import Img4 from '../assets/memories/4.svg'
+import Img5 from '../assets/memories/5.svg'
+import Img6 from '../assets/memories/6.svg'
+import Img7 from '../assets/memories/7.svg'
+import Img8 from '../assets/memories/8.svg'
 
 const MEMORIES = [Img1, Img2, Img3, Img4, Img5, Img6, Img7, Img8]
 
