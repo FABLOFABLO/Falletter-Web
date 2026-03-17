@@ -110,7 +110,7 @@ const Card = styled.article<{ $indent: number }>`
   padding: 0 16px 0 ${(p) => p.$indent}px;
 
   ${media.mobile} {
-    padding: 0 8px;
+    padding: 0;
   }
 `
 
@@ -143,6 +143,9 @@ const CardTitle = styled.h3`
 
   ${media.mobile} {
     font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 `
 
@@ -153,7 +156,7 @@ const ImgGrid = styled.div<{ $cols: number; $size: number }>`
   max-width: 100%;
 
   ${media.mobile} {
-    grid-template-columns: repeat(${(p) => p.$cols}, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     gap: 6px;
   }
 `
@@ -211,7 +214,7 @@ const MonthCell = styled.div<{ $indent: number }>`
   padding: 5px 0 0 ${(p) => p.$indent}px;
 
   ${media.mobile} {
-    padding: 4px 0 0 0;
+    padding: 0;
   }
 `
 
@@ -222,7 +225,8 @@ const Month = styled.p`
   color: #ff7a9d;
 
   ${media.mobile} {
-    font-size: 12px;
+    display: inline-block;
+    margin-right: 8px;
   }
 `
 
