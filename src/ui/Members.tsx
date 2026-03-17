@@ -148,9 +148,10 @@ const Tab = styled.button<{ $active: boolean }>`
   transition: all 0.2s;
   background: ${(p) => (p.$active ? '#FE5784' : 'transparent')};
   color: ${(p) => (p.$active ? '#ffffff' : 'rgba(255,255,255,0.5)')};
+  white-space: nowrap;
 
   ${media.mobile} {
-    padding: 10px 30px;
+    padding: 10px 20px;
     font-size: 14px;
   }
 `
