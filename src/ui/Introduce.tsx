@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import ImgFalletter from '../assets/hero/crane.svg'
@@ -29,6 +30,14 @@ const QNA_ITEMS = [
     answer: 'AI를 통해 필터링되며, 신고 시 제재,\n관리자 모니터링이 진행됩니다.',
   },
 ]
+
+const SECTIONS = ['Falletter', 'Project Details', 'Q&A']
+
+const HERO_DESC = `오직 DSM 학생들만을 위한 익명 소통과 맞춤형 연결 서비스로,
+학교 커뮤니티 내 숨겨진 상호작용을 활성화하고
+학생들 간의 자연스러운 교류를 돕는 서비스입니다.
+단순한 메시지 전달을 넘어, 학생들이 자유롭게 의견을 나누고,
+새로운 관계를 형성할 기회를 제공하는 것이 본 서비스의 목적입니다.`
 
 const Root = styled.section`
   width: 100%;
@@ -230,16 +239,52 @@ const CardDesc = styled.p`
   white-space: pre-line;
 `
 
-const HERO_DESC = `오직 DSM 학생들만을 위한 익명 소통과 맞춤형 연결 서비스로,
-학교 커뮤니티 내 숨겨진 상호작용을 활성화하고
-학생들 간의 자연스러운 교류를 돕는 서비스입니다.
-단순한 메시지 전달을 넘어, 학생들이 자유롭게 의견을 나누고,
-새로운 관계를 형성할 기회를 제공하는 것이 본 서비스의 목적입니다.`
+const Indicator = styled.div`
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+`
+
+const IndDot = styled.button<{ $active: boolean }>`
+  width: 6px;
+  height: ${(p) => (p.$active ? 28 : 6)}px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  background: ${(p) => (p.$active ? '#FF7A9D' : 'rgba(255,122,157,0.3)')};
+  transition: all 0.3s ease;
+`
 
 export function Introduce() {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    const observers = sectionRefs.current.map((el, i) => {
+      if (!el) return null
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveIdx(i) },
+        { threshold: 0.1, rootMargin: '-20% 0px -20% 0px' }
+      )
+      obs.observe(el)
+      return obs
+    })
+    return () => observers.forEach((obs) => obs?.disconnect())
+  }, [])
+
+  const scrollToSection = (i: number) => {
+    sectionRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
+
   return (
     <Root>
-      <Hero>
+      <Hero ref={(el) => { sectionRefs.current[0] = el }}>
         <Inner>
           <ImageWrap>
             <img src={ImgFalletter} alt="Falletter" />
@@ -248,7 +293,7 @@ export function Introduce() {
             <Label>FEATURED PROJECT</Label>
             <Title>Falletter</Title>
             <Desc>{HERO_DESC}</Desc>
-            <LinkBtn href="https://notion.so" target="_blank" rel="noopener noreferrer">
+            <LinkBtn href="https://judicious-dungeon-dd4.notion.site/Falletter-1d2c2dbb99438088bb51c0cc53f3215b?source=copy_link" target="_blank" rel="noopener noreferrer">
               Falletter Notion
             </LinkBtn>
           </TextWrap>
@@ -257,7 +302,7 @@ export function Introduce() {
 
       <Divider />
 
-      <Details>
+      <Details ref={(el) => { sectionRefs.current[1] = el }}>
         <DetailsInner>
           <TitleRow>
             <TitleLine />
@@ -267,7 +312,7 @@ export function Introduce() {
         </DetailsInner>
       </Details>
 
-      <FAQ>
+      <FAQ ref={(el) => { sectionRefs.current[2] = el }}>
         <FAQTitle>Q&A</FAQTitle>
         <Grid>
           {QNA_ITEMS.map((item) => (
@@ -281,6 +326,17 @@ export function Introduce() {
           ))}
         </Grid>
       </FAQ>
+
+      <Indicator>
+        {SECTIONS.map((label, i) => (
+          <IndDot
+            key={label}
+            $active={activeIdx === i}
+            onClick={() => scrollToSection(i)}
+            aria-label={label}
+          />
+        ))}
+      </Indicator>
     </Root>
   )
 }
