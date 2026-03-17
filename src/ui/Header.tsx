@@ -171,9 +171,11 @@ const Word = styled.span`
 
 const Overlay = styled.div<{ $open: boolean }>`
   display: none;
+  pointer-events: none;
 
   ${media.mobile} {
     display: ${(p) => (p.$open ? 'block' : 'none')};
+    pointer-events: ${(p) => (p.$open ? 'auto' : 'none')};
     position: fixed;
     top: 0;
     left: 0;
