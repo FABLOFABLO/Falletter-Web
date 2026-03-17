@@ -20,7 +20,7 @@ const Root = styled.header`
   background: rgba(10, 10, 12, 0.78);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  overflow: hidden;
+  overflow: visible;
 `
 
 const Inner = styled.div`
@@ -40,7 +40,8 @@ const Brand = styled(Link)`
   align-items: center;
   flex-shrink: 0;
   text-decoration: none;
-  z-index: 101;
+  z-index: 201;
+  position: relative;
 `
 
 const LogoImg = styled.img`
@@ -60,7 +61,8 @@ const MenuButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 8px;
-  z-index: 101;
+  z-index: 201;
+  position: relative;
 
   ${media.mobile} {
     display: flex;
@@ -98,19 +100,19 @@ const Nav = styled.nav<{ $open: boolean }>`
     position: fixed;
     top: 0;
     right: 0;
-    width: 70%;
-    max-width: 300px;
+    width: 75%;
+    max-width: 320px;
     height: 100vh;
     background: rgba(15, 15, 17, 0.98);
     backdrop-filter: blur(20px);
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 80px 24px 24px;
-    gap: 24px;
+    padding: 80px 28px 24px;
+    gap: 20px;
     transform: translateX(${(p) => (p.$open ? '0' : '100%')});
     transition: transform 0.3s ease;
-    z-index: 100;
+    z-index: 200;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
   }
 `
@@ -165,11 +167,11 @@ const Overlay = styled.div<{ $open: boolean }>`
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     opacity: ${(p) => (p.$open ? '1' : '0')};
     pointer-events: ${(p) => (p.$open ? 'auto' : 'none')};
     transition: opacity 0.3s;
-    z-index: 99;
+    z-index: 150;
   }
 `
 
