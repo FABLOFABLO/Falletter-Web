@@ -5,9 +5,9 @@ import ChevronUpImg   from '../assets/faq/chevron-up.svg'
 import ChevronDownImg from '../assets/faq/chevron-down.svg'
 
 const FAQ_ITEMS = [
-  { q: 'FABLO 지원은 어디서 하나요?',  a: '지원 공고를 배포 할 예정입니다!' },
-  { q: 'FABLO는 몇 명인가요?',         a: '현재 재학생 7명입니다.' },
-  { q: '어떤 분야를 뽑나요?',          a: 'Backend, Flutter, Design, Frontend 지원받습니다.' },
+  { q: 'FABLO 지원은 어디서 하나요?',  a: 'https://forms.gle/xrXgseHCsEUk2YHH7', isLink: true },
+  { q: 'FABLO는 몇 명인가요?',         a: '현재 재학생 7명입니다.',                isLink: false },
+  { q: '어떤 분야를 뽑나요?',          a: 'Backend, Flutter, Design, Frontend 지원받습니다.', isLink: false },
 ]
 
 const Root = styled.section`
@@ -95,6 +95,23 @@ const Answer = styled.div<{ $open: boolean }>`
   }
 `
 
+const AnswerLink = styled.a`
+  display: inline-block;
+  margin: 0;
+  padding: 0 28px 24px;
+  font-family: Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #ff7a9d;
+  line-height: 1.7;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover {
+    opacity: 0.75;
+  }
+`
+
 export function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
@@ -115,7 +132,13 @@ export function Faq() {
               <ChevronIcon src={openIndex === i ? ChevronUpImg : ChevronDownImg} alt="" />
             </Question>
             <Answer $open={openIndex === i}>
-              <p>{item.a}</p>
+              {item.isLink ? (
+                <AnswerLink href={item.a} target="_blank" rel="noopener noreferrer">
+                  {item.a}
+                </AnswerLink>
+              ) : (
+                <p>{item.a}</p>
+              )}
             </Answer>
           </Item>
         ))}
