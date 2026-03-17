@@ -12,9 +12,7 @@ const Root = styled.section`
   position: relative;
 
   ${media.mobile} {
-    height: auto;
-    min-height: 200px;
-    padding: 32px 0;
+    height: 280px;
   }
 `
 

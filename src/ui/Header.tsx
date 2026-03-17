@@ -40,7 +40,7 @@ const Brand = styled(Link)`
   align-items: center;
   flex-shrink: 0;
   text-decoration: none;
-  z-index: 1001;
+  z-index: 1002;
   position: relative;
 `
 
@@ -61,7 +61,7 @@ const MenuButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 8px;
-  z-index: 1001;
+  z-index: 1002;
   position: relative;
 
   ${media.mobile} {
@@ -100,22 +100,20 @@ const Nav = styled.nav<{ $open: boolean }>`
     position: fixed;
     top: 0;
     right: 0;
-    width: 75%;
-    max-width: 320px;
+    width: 280px;
     height: 100vh;
     background: rgba(15, 15, 17, 0.98);
     backdrop-filter: blur(20px);
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
     justify-content: flex-start;
-    padding: 80px 20px 24px;
-    gap: 8px;
+    padding: 100px 32px 32px;
+    gap: 4px;
     transform: translateX(${(p) => (p.$open ? '0' : '100%')});
     transition: transform 0.3s ease;
-    z-index: 1000;
+    z-index: 1001;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
-    pointer-events: ${(p) => (p.$open ? 'auto' : 'none')};
-    overflow-y: auto;
+    visibility: ${(p) => (p.$open ? 'visible' : 'hidden')};
   }
 `
 
@@ -142,14 +140,17 @@ const StyledNavLink = styled(Link)<{ $active?: boolean }>`
   }
 
   ${media.mobile} {
-    display: block;
-    font-size: 17px;
-    padding: 16px 8px;
+    display: flex;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 18px 12px;
     width: 100%;
-    position: relative;
-    z-index: 1;
-    pointer-events: auto;
-    -webkit-tap-highlight-color: rgba(255, 122, 157, 0.2);
+    border-radius: 8px;
+    background: ${(p) => (p.$active ? 'rgba(255, 122, 157, 0.1)' : 'transparent')};
+
+    &:active {
+      background: rgba(255, 122, 157, 0.2);
+    }
   }
 `
 
@@ -162,24 +163,24 @@ const Word = styled.span`
   transform: translateY(1px);
   text-shadow: 0.5px 0 0 currentColor, -0.5px 0 0 currentColor;
   transition: color 0.15s;
-  pointer-events: none;
+
+  ${media.mobile} {
+    font-size: 18px;
+  }
 `
 
 const Overlay = styled.div<{ $open: boolean }>`
   display: none;
 
   ${media.mobile} {
-    display: block;
+    display: ${(p) => (p.$open ? 'block' : 'none')};
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    opacity: ${(p) => (p.$open ? '1' : '0')};
-    pointer-events: ${(p) => (p.$open ? 'auto' : 'none')};
-    transition: opacity 0.3s;
-    z-index: 999;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
   }
 `
 

@@ -17,8 +17,7 @@ const Wrapper = styled.div`
   height: 240px;
 
   ${media.mobile} {
-    height: auto;
-    min-height: 200px;
+    height: 280px;
   }
 `
 
@@ -30,8 +29,7 @@ const Root = styled.section`
   position: relative;
 
   ${media.mobile} {
-    height: auto;
-    min-height: 200px;
+    height: 280px;
   }
 `
 
@@ -74,10 +72,10 @@ const Inner = styled.div`
 
   ${media.mobile} {
     grid-template-columns: 1fr;
-    padding: 32px 24px;
-    gap: 16px;
+    padding: 40px 24px 48px;
+    gap: 20px;
     align-items: center;
-    height: auto;
+    justify-items: center;
   }
 `
 
