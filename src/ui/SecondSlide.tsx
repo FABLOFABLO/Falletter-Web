@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import PhoneLeft  from '../assets/Slide/iPhone 16.svg'
-import PhoneRight from '../assets/Slide/iPhone 15 Pro.svg'
+import PhoneLeft  from '../assets/slide/iPhone 16.svg'
+import PhoneRight from '../assets/slide/iPhone 15 Pro.svg'
 
 const Root = styled.section`
   width: 100%;

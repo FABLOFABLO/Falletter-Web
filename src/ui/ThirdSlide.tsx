@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import ThirdImg     from '../assets/Slide/Third.svg'
-import FalletterImg from '../assets/Slide/Falletter.svg'
+import ThirdImg     from '../assets/slide/Third.svg'
+import FalletterImg from '../assets/slide/falletter.svg'
 
 const Root = styled.section`
   width: 100%;
