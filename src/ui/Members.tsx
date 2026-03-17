@@ -106,6 +106,8 @@ const Root = styled.section`
   background: #0b0b0d;
   min-height: 100vh;
   padding: 20px 0 120px;
+  pointer-events: auto;
+  position: relative;
 
   ${media.mobile} {
     padding: 20px 0 80px;
@@ -116,6 +118,7 @@ const TabRow = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 60px;
+  pointer-events: auto;
 
   ${media.mobile} {
     margin-bottom: 40px;
@@ -129,6 +132,9 @@ const TabWrap = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 999px;
   overflow: hidden;
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
 
   ${media.mobile} {
     width: 100%;
@@ -142,6 +148,9 @@ const Tab = styled.button<{ $active: boolean }>`
   border-radius: 999px;
   border: none;
   cursor: pointer;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
   font-family: Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
   font-size: 15px;
   font-weight: 400;

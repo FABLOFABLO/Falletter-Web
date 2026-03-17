@@ -20,6 +20,8 @@ const HERO_FADE_END = 320
 
 const Main = styled.main`
   position: relative;
+  pointer-events: auto;
+  z-index: 1;
 `
 
 const HeroWrap = styled.div<{ $opacity: number; $y: number }>`
