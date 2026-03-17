@@ -1,5 +1,16 @@
 import { createGlobalStyle } from 'styled-components'
 
+// 반응형 미디어쿼리 중단점
+export const breakpoints = {
+  mobile: '768px',
+  tablet: '1024px',
+}
+
+export const media = {
+  mobile: `@media (max-width: ${breakpoints.mobile})`,
+  tablet: `@media (max-width: ${breakpoints.tablet})`,
+}
+
 export const GlobalStyle = createGlobalStyle`
   @import url('https://font.elice.io/css?family=Elice+DX+Neolli');
 

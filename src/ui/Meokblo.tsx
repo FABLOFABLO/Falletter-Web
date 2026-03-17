@@ -9,6 +9,7 @@ import ImgHoesik   from '../assets/meokblo/회식.svg'
 import ImgDonut1   from '../assets/meokblo/도넛.svg'
 import ImgDonut2   from '../assets/meokblo/도넛2.svg'
 import LineDot     from '../assets/meokblo/line-dot.svg'
+import { media } from '../styles/GlobalStyle'
 
 const INDENT_ROW1 = 100
 const INDENT_ROW2 = 50
@@ -37,6 +38,10 @@ const Root = styled.section`
   width: 100%;
   background: #0b0b0d;
   padding: 50px 0 100px;
+
+  ${media.mobile} {
+    padding: 40px 0 60px;
+  }
 `
 
 const Title = styled.h2`
@@ -47,6 +52,11 @@ const Title = styled.h2`
   line-height: 1;
   color: #ff7a9d;
   text-align: center;
+
+  ${media.mobile} {
+    font-size: 24px;
+    margin: 0 0 32px;
+  }
 `
 
 const Wrap = styled.div`
@@ -56,18 +66,52 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 48px;
+
+  ${media.mobile} {
+    padding: 0 24px;
+    gap: 32px;
+  }
 `
 
-const RowWrap    = styled.div`display: flex; flex-direction: column;`
-const CardRow    = styled.div`display: flex; align-items: flex-start;`
-const MonthRow   = styled.div`display: flex;`
-const RailRow    = styled.div`display: flex; margin-top: 10px;`
+const RowWrap    = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const CardRow    = styled.div`
+  display: flex;
+  align-items: flex-start;
+
+  ${media.mobile} {
+    flex-direction: column;
+    gap: 24px;
+  }
+`
+const MonthRow   = styled.div`
+  display: flex;
+
+  ${media.mobile} {
+    flex-direction: column;
+    gap: 0;
+  }
+`
+const RailRow    = styled.div`
+  display: flex;
+  margin-top: 10px;
+
+  ${media.mobile} {
+    display: none;
+  }
+`
 
 const Card = styled.article<{ $indent: number }>`
   flex: 1;
   min-width: 0;
   overflow: hidden;
   padding: 0 16px 0 ${(p) => p.$indent}px;
+
+  ${media.mobile} {
+    padding: 0;
+  }
 `
 
 const DashedBorder = styled.div`
@@ -83,6 +127,10 @@ const DashedLineImg = styled.img<{ $h: number }>`
   object-fit: fill;
   flex-shrink: 0;
   display: block;
+
+  ${media.mobile} {
+    display: none;
+  }
 `
 
 const CardTitle = styled.h3`
@@ -92,6 +140,13 @@ const CardTitle = styled.h3`
   font-size: 15px;
   line-height: 1.3;
   color: #fff;
+
+  ${media.mobile} {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 `
 
 const ImgGrid = styled.div<{ $cols: number; $size: number }>`
@@ -99,6 +154,11 @@ const ImgGrid = styled.div<{ $cols: number; $size: number }>`
   grid-template-columns: repeat(${(p) => p.$cols}, minmax(0, ${(p) => p.$size}px));
   gap: 8px;
   max-width: 100%;
+
+  ${media.mobile} {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 6px;
+  }
 `
 
 const ImgBox = styled.div<{ $size: number }>`
@@ -115,6 +175,10 @@ const ImgBox = styled.div<{ $size: number }>`
     height: 100% !important;
     object-fit: cover;
     display: block;
+  }
+
+  ${media.mobile} {
+    max-width: 100%;
   }
 `
 
@@ -148,6 +212,10 @@ const Dot = styled.div<{ $indent: number }>`
 const MonthCell = styled.div<{ $indent: number }>`
   flex: 1;
   padding: 5px 0 0 ${(p) => p.$indent}px;
+
+  ${media.mobile} {
+    padding: 0;
+  }
 `
 
 const Month = styled.p`
@@ -155,6 +223,11 @@ const Month = styled.p`
   font-size: 13px;
   font-weight: 600;
   color: #ff7a9d;
+
+  ${media.mobile} {
+    display: inline-block;
+    margin-right: 8px;
+  }
 `
 
 interface EventRowProps {

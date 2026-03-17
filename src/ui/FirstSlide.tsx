@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import BlockSvg from '../assets/slide/block.svg'
 import { SecondSlide } from './SecondSlide'
 import { ThirdSlide } from './ThirdSlide'
+import { media } from '../styles/GlobalStyle'
 
 const TOTAL_SLIDES = 3
 const AUTO_PLAY_INTERVAL = 10000
@@ -60,6 +61,13 @@ const Inner = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: flex-end;
+
+  ${media.mobile} {
+    grid-template-columns: 1fr;
+    padding: 0 24px 32px;
+    gap: 20px;
+    align-items: center;
+  }
 `
 
 const Heading = styled.h1`
@@ -70,6 +78,11 @@ const Heading = styled.h1`
   line-height: 1.6;
   color: #ffffff;
   white-space: pre-line;
+
+  ${media.mobile} {
+    font-size: 20px;
+    text-align: center;
+  }
 `
 
 const Highlight = styled.span`
@@ -84,6 +97,12 @@ const Right = styled.div`
   justify-content: flex-end;
   padding-right: 50px;
   height: 100%;
+
+  ${media.mobile} {
+    justify-content: center;
+    padding-right: 0;
+    height: auto;
+  }
 `
 
 const Block = styled.img`
@@ -92,6 +111,10 @@ const Block = styled.img`
   filter:
     drop-shadow(0 12px 24px rgba(0, 0, 0, 0.6))
     drop-shadow(0 0 20px rgba(255, 110, 168, 0.3));
+
+  ${media.mobile} {
+    width: 100px;
+  }
 `
 
 const StarWrap = styled.div`
@@ -100,6 +123,12 @@ const StarWrap = styled.div`
   left: 315px;
   pointer-events: none;
   z-index: 2;
+
+  ${media.mobile} {
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `
 
 const SliderBar = styled.div`
@@ -112,6 +141,11 @@ const SliderBar = styled.div`
   align-items: center;
   justify-content: center;
   gap: 60px;
+
+  ${media.mobile} {
+    gap: 30px;
+    bottom: 12px;
+  }
 `
 
 const ArrowBtn = styled.button`
@@ -127,12 +161,21 @@ const ArrowBtn = styled.button`
   align-items: center;
 
   &:hover { opacity: 1; }
+
+  ${media.mobile} {
+    font-size: 20px;
+    padding: 4px;
+  }
 `
 
 const Dots = styled.div`
   display: flex;
   align-items: center;
   gap: 7px;
+
+  ${media.mobile} {
+    gap: 5px;
+  }
 `
 
 const Dot = styled.span<{ $active?: boolean }>`
@@ -142,6 +185,11 @@ const Dot = styled.span<{ $active?: boolean }>`
   background: ${(p) => (p.$active ? '#ff6ea8' : 'rgba(255,255,255,0.3)')};
   transition: all 0.2s;
   cursor: pointer;
+
+  ${media.mobile} {
+    width: ${(p) => (p.$active ? 16 : 6)}px;
+    height: 6px;
+  }
 `
 
 function Star({ size = 28, color = '#ff7ab0' }: { size?: number; color?: string }) {

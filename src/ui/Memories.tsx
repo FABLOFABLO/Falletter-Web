@@ -8,6 +8,7 @@ import Img5 from '../assets/memories/5.svg'
 import Img6 from '../assets/memories/6.svg'
 import Img7 from '../assets/memories/7.svg'
 import Img8 from '../assets/memories/8.svg'
+import { media } from '../styles/GlobalStyle'
 
 const MEMORIES = [Img1, Img2, Img3, Img4, Img5, Img6, Img7, Img8]
 
@@ -15,6 +16,10 @@ const Root = styled.section`
   width: 100%;
   background: #0b0b0d;
   padding: 80px 0;
+
+  ${media.mobile} {
+    padding: 50px 0;
+  }
 `
 
 const Title = styled.h2`
@@ -25,18 +30,32 @@ const Title = styled.h2`
   line-height: 1;
   color: #ff7a9d;
   text-align: center;
+
+  ${media.mobile} {
+    font-size: 24px;
+    margin: 0 0 20px;
+  }
 `
 
 const Wrap = styled.div`
   max-width: 960px;
   margin: 0 auto;
   padding: 0 48px;
+
+  ${media.mobile} {
+    padding: 0 24px;
+  }
 `
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 14px 16px;
+
+  ${media.mobile} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
 `
 
 const Card = styled.div`

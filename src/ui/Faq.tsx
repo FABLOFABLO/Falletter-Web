@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import ChevronUpImg   from '../assets/faq/chevron-up.svg'
 import ChevronDownImg from '../assets/faq/chevron-down.svg'
+import { media } from '../styles/GlobalStyle'
 
 const FAQ_ITEMS = [
   { q: 'FABLO 지원은 어디서 하나요?',  a: 'https://forms.gle/xrXgseHCsEUk2YHH7', isLink: true },
@@ -18,11 +19,20 @@ const Root = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  ${media.mobile} {
+    padding: 80px 0 100px;
+  }
 `
 
 const Header = styled.div`
   text-align: center;
   margin-bottom: 80px;
+
+  ${media.mobile} {
+    margin-bottom: 50px;
+    padding: 0 24px;
+  }
 `
 
 const Title = styled.h1`
@@ -31,6 +41,10 @@ const Title = styled.h1`
   font-weight: 700;
   font-size: 36px;
   color: #ffffff;
+
+  ${media.mobile} {
+    font-size: 28px;
+  }
 `
 
 const SubTitle = styled.p`
@@ -39,6 +53,10 @@ const SubTitle = styled.p`
   font-weight: 400;
   font-size: 15px;
   color: #b7b7b7;
+
+  ${media.mobile} {
+    font-size: 14px;
+  }
 `
 
 const List = styled.div`
@@ -47,6 +65,11 @@ const List = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  ${media.mobile} {
+    max-width: calc(100% - 48px);
+    gap: 12px;
+  }
 `
 
 const Item = styled.div<{ $open: boolean }>`
@@ -71,12 +94,23 @@ const Question = styled.button`
   font-weight: 500;
   font-size: 16px;
   color: #ffffff;
+
+  ${media.mobile} {
+    padding: 20px 20px;
+    font-size: 15px;
+    gap: 12px;
+  }
 `
 
 const ChevronIcon = styled.img`
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+
+  ${media.mobile} {
+    width: 18px;
+    height: 18px;
+  }
 `
 
 const Answer = styled.div<{ $open: boolean }>`
@@ -92,6 +126,13 @@ const Answer = styled.div<{ $open: boolean }>`
     font-size: 14px;
     color: #ff7a9d;
     line-height: 1.7;
+  }
+
+  ${media.mobile} {
+    p {
+      padding: 0 20px 20px;
+      font-size: 13px;
+    }
   }
 `
 
@@ -109,6 +150,11 @@ const AnswerLink = styled.a`
 
   &:hover {
     opacity: 0.75;
+  }
+
+  ${media.mobile} {
+    padding: 0 20px 20px;
+    font-size: 13px;
   }
 `
 

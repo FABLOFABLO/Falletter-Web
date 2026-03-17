@@ -7,6 +7,7 @@ import IconUsers    from '../assets/hero/people.svg'
 import IconEye      from '../assets/hero/eye.svg'
 import IconGift     from '../assets/hero/brick.svg'
 import IconShield   from '../assets/hero/x.svg'
+import { media } from '../styles/GlobalStyle'
 
 const QNA_ITEMS = [
   {
@@ -49,6 +50,11 @@ const Hero = styled.div`
   display: flex;
   align-items: center;
   padding: 64px 0 160px;
+
+  ${media.mobile} {
+    min-height: auto;
+    padding: 40px 0 80px;
+  }
 `
 
 const Inner = styled.div`
@@ -58,6 +64,12 @@ const Inner = styled.div`
   display: flex;
   align-items: center;
   gap: 40px;
+
+  ${media.mobile} {
+    flex-direction: column;
+    padding: 0 24px;
+    gap: 32px;
+  }
 `
 
 const ImageWrap = styled.div`
@@ -73,6 +85,15 @@ const ImageWrap = styled.div`
     width: 300px;
     object-fit: contain;
   }
+
+  ${media.mobile} {
+    width: 200px;
+    margin-left: 0;
+
+    img {
+      width: 200px;
+    }
+  }
 `
 
 const TextWrap = styled.div`
@@ -87,6 +108,11 @@ const Label = styled.span`
   color: #ff7a9d;
   letter-spacing: 0.12em;
   margin-bottom: 12px;
+
+  ${media.mobile} {
+    font-size: 11px;
+    text-align: center;
+  }
 `
 
 const Title = styled.h2`
@@ -96,6 +122,11 @@ const Title = styled.h2`
   font-size: 46px;
   color: #ffffff;
   line-height: 1.1;
+
+  ${media.mobile} {
+    font-size: 32px;
+    text-align: center;
+  }
 `
 
 const Desc = styled.p`
@@ -106,6 +137,11 @@ const Desc = styled.p`
   color: #cccccc;
   line-height: 1.85;
   white-space: pre-line;
+
+  ${media.mobile} {
+    font-size: 14px;
+    text-align: center;
+  }
 `
 
 const LinkBtn = styled.a`
@@ -122,6 +158,13 @@ const LinkBtn = styled.a`
   color: #ffffff;
   text-decoration: underline;
   cursor: pointer;
+
+  ${media.mobile} {
+    width: 160px;
+    height: 38px;
+    font-size: 13px;
+    align-self: center;
+  }
 `
 
 const Divider = styled.hr`
@@ -136,6 +179,11 @@ const Details = styled.div`
   display: flex;
   align-items: center;
   padding: 100px 0;
+
+  ${media.mobile} {
+    min-height: auto;
+    padding: 60px 0;
+  }
 `
 
 const DetailsInner = styled.div`
@@ -143,6 +191,10 @@ const DetailsInner = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 0 60px;
+
+  ${media.mobile} {
+    padding: 0 24px;
+  }
 `
 
 const TitleRow = styled.div`
@@ -150,6 +202,11 @@ const TitleRow = styled.div`
   align-items: center;
   gap: 16px;
   margin-bottom: 60px;
+
+  ${media.mobile} {
+    gap: 12px;
+    margin-bottom: 40px;
+  }
 `
 
 const TitleLine = styled.div`
@@ -157,6 +214,11 @@ const TitleLine = styled.div`
   height: 3px;
   background: #FE5784;
   border-radius: 2px;
+
+  ${media.mobile} {
+    width: 24px;
+    height: 2px;
+  }
 `
 
 const DetailsTitle = styled.h3`
@@ -165,6 +227,10 @@ const DetailsTitle = styled.h3`
   font-weight: 700;
   font-size: 22px;
   color: #ffffff;
+
+  ${media.mobile} {
+    font-size: 18px;
+  }
 `
 
 const PhoneImg = styled.img`
@@ -172,10 +238,18 @@ const PhoneImg = styled.img`
   margin: 0 auto;
   display: block;
   object-fit: contain;
+
+  ${media.mobile} {
+    width: 100%;
+  }
 `
 
 const FAQ = styled.div`
   padding: 100px 0 120px;
+
+  ${media.mobile} {
+    padding: 60px 0 80px;
+  }
 `
 
 const FAQTitle = styled.h2`
@@ -185,6 +259,11 @@ const FAQTitle = styled.h2`
   font-size: 28px;
   color: #ff7a9d;
   text-align: center;
+
+  ${media.mobile} {
+    font-size: 24px;
+    margin: 0 0 40px;
+  }
 `
 
 const Grid = styled.div`
@@ -194,6 +273,12 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+
+  ${media.mobile} {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+    gap: 16px;
+  }
 `
 
 const Card = styled.div`
@@ -204,6 +289,11 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  ${media.mobile} {
+    padding: 24px 20px;
+    gap: 12px;
+  }
 `
 
 const IconBox = styled.div`
@@ -227,6 +317,10 @@ const CardTitle = styled.h3`
   font-weight: 700;
   font-size: 20px;
   color: #ffffff;
+
+  ${media.mobile} {
+    font-size: 17px;
+  }
 `
 
 const CardDesc = styled.p`
@@ -237,6 +331,10 @@ const CardDesc = styled.p`
   color: #b7b7b7;
   line-height: 1.7;
   white-space: pre-line;
+
+  ${media.mobile} {
+    font-size: 13px;
+  }
 `
 
 const Indicator = styled.div`
@@ -248,6 +346,10 @@ const Indicator = styled.div`
   flex-direction: column;
   gap: 10px;
   z-index: 100;
+
+  ${media.mobile} {
+    display: none;
+  }
 `
 
 const IndDot = styled.button<{ $active: boolean }>`
