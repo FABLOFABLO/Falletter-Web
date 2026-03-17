@@ -40,7 +40,7 @@ const Brand = styled(Link)`
   align-items: center;
   flex-shrink: 0;
   text-decoration: none;
-  z-index: 201;
+  z-index: 1001;
   position: relative;
 `
 
@@ -61,7 +61,7 @@ const MenuButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 8px;
-  z-index: 201;
+  z-index: 1001;
   position: relative;
 
   ${media.mobile} {
@@ -109,11 +109,12 @@ const Nav = styled.nav<{ $open: boolean }>`
     align-items: flex-start;
     justify-content: flex-start;
     padding: 80px 28px 24px;
-    gap: 20px;
+    gap: 16px;
     transform: translateX(${(p) => (p.$open ? '0' : '100%')});
     transition: transform 0.3s ease;
-    z-index: 200;
+    z-index: 1000;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
+    pointer-events: ${(p) => (p.$open ? 'auto' : 'none')};
   }
 `
 
@@ -129,6 +130,8 @@ const StyledNavLink = styled(Link)<{ $active?: boolean }>`
   white-space: nowrap;
   transition: color 0.15s;
   text-decoration: none;
+  position: relative;
+  z-index: 1;
 
   span {
     color: ${(p) => (p.$active ? '#ff7a9d' : 'rgba(255,255,255,0.92)')};
@@ -141,8 +144,9 @@ const StyledNavLink = styled(Link)<{ $active?: boolean }>`
 
   ${media.mobile} {
     font-size: 16px;
-    padding: 8px 0;
+    padding: 12px 0;
     width: 100%;
+    display: flex;
   }
 `
 
@@ -171,7 +175,7 @@ const Overlay = styled.div<{ $open: boolean }>`
     opacity: ${(p) => (p.$open ? '1' : '0')};
     pointer-events: ${(p) => (p.$open ? 'auto' : 'none')};
     transition: opacity 0.3s;
-    z-index: 150;
+    z-index: 999;
   }
 `
 
