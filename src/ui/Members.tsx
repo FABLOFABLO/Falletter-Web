@@ -131,12 +131,9 @@ const PageSubTitle = styled.p`
   font-weight: 400;
   color: #b7b7b7;
 `
-const GenSection = styled.div`
-  padding: 20px 0 200px;
-`
 
-const LastGenSection = styled(GenSection)`
-  padding-bottom: 40px;
+const GenSection = styled.div<{ $last?: boolean }>`
+  padding: 20px 0 ${(p) => (p.$last ? '40px' : '200px')};
 `
 
 const GenTitle = styled.h2`
@@ -148,13 +145,13 @@ const GenTitle = styled.h2`
   color: #FF9BBB;
 `
 
-const MemberGrid = styled.div<{ $cols: number }>`
+const MemberGrid = styled.div<{ $cols: number; $mb?: number }>`
   display: grid;
   grid-template-columns: repeat(${(p) => p.$cols}, 140px);
   justify-content: center;
   gap: 60px 80px;
   max-width: 900px;
-  margin: 0 auto;
+  margin: 0 auto ${(p) => (p.$mb ? `${p.$mb}px` : '0')};
   padding: 0 60px;
 `
 
@@ -244,16 +241,17 @@ function MemberCardItem({ member }: { member: Member }) {
   )
 }
 
-export function Members() {
-  const [tab, setTab]         = useState<'current' | 'graduated'>('current')
+function useGenObserver(enabled: boolean, dep: unknown) {
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
   const [activeGen, setActiveGen] = useState(0)
-  const sectionRefs           = useRef<(HTMLDivElement | null)[]>([])
-
-  const isCurrent   = tab === 'current'
-  const titlePrefix = isCurrent ? '동아리' : '졸업생'
 
   useEffect(() => {
-    if (!isCurrent) return
+    setActiveGen(0)
+    sectionRefs.current = []
+  }, [dep])
+
+  useEffect(() => {
+    if (!enabled) return
     const observers = sectionRefs.current.map((el, i) => {
       if (!el) return null
       const obs = new IntersectionObserver(
@@ -264,12 +262,16 @@ export function Members() {
       return obs
     })
     return () => observers.forEach((obs) => obs?.disconnect())
-  }, [isCurrent, tab])
+  }, [enabled, dep])
 
-  useEffect(() => {
-    setActiveGen(0)
-    sectionRefs.current = []
-  }, [tab])
+  return { sectionRefs, activeGen }
+}
+
+export function Members() {
+  const [tab, setTab] = useState<'current' | 'graduated'>('current')
+  const isCurrent     = tab === 'current'
+
+  const { sectionRefs, activeGen } = useGenObserver(isCurrent, tab)
 
   const scrollToGen = (i: number) => {
     sectionRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -284,12 +286,11 @@ export function Members() {
         </TabWrap>
       </TabRow>
 
-      <PageTitle>{titlePrefix} <span>부원</span> 소개</PageTitle>
+      <PageTitle>{isCurrent ? '동아리' : '졸업생'} <span>부원</span> 소개</PageTitle>
       {isCurrent && <PageSubTitle>FABLO의 멋진 멤버들을 소개합니다.</PageSubTitle>}
 
       {isCurrent ? (
         <>
-          {/* 10기 */}
           <GenSection ref={(el) => { sectionRefs.current[0] = el }}>
             <GenTitle>10기</GenTitle>
             <MemberGrid $cols={CURRENT[0].cols}>
@@ -297,16 +298,15 @@ export function Members() {
             </MemberGrid>
           </GenSection>
 
-          {/* 11기 */}
-          <LastGenSection ref={(el) => { sectionRefs.current[1] = el }}>
+          <GenSection $last ref={(el) => { sectionRefs.current[1] = el }}>
             <GenTitle>11기</GenTitle>
-            <MemberGrid $cols={CURRENT[1].cols} style={{ marginBottom: 60 }}>
+            <MemberGrid $cols={CURRENT[1].cols} $mb={60}>
               {CURRENT[1].members.map((m) => <MemberCardItem key={m.name} member={m} />)}
             </MemberGrid>
             <MemberGrid $cols={CURRENT[2].cols}>
               {CURRENT[2].members.map((m) => <MemberCardItem key={m.name} member={m} />)}
             </MemberGrid>
-          </LastGenSection>
+          </GenSection>
 
           <Indicator>
             {GEN_LABELS.map((label, i) => (
