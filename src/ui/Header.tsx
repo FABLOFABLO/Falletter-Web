@@ -106,15 +106,16 @@ const Nav = styled.nav<{ $open: boolean }>`
     background: rgba(15, 15, 17, 0.98);
     backdrop-filter: blur(20px);
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: flex-start;
-    padding: 80px 28px 24px;
-    gap: 16px;
+    padding: 80px 20px 24px;
+    gap: 8px;
     transform: translateX(${(p) => (p.$open ? '0' : '100%')});
     transition: transform 0.3s ease;
     z-index: 1000;
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     pointer-events: ${(p) => (p.$open ? 'auto' : 'none')};
+    overflow-y: auto;
   }
 `
 
@@ -130,8 +131,6 @@ const StyledNavLink = styled(Link)<{ $active?: boolean }>`
   white-space: nowrap;
   transition: color 0.15s;
   text-decoration: none;
-  position: relative;
-  z-index: 1;
 
   span {
     color: ${(p) => (p.$active ? '#ff7a9d' : 'rgba(255,255,255,0.92)')};
@@ -143,10 +142,14 @@ const StyledNavLink = styled(Link)<{ $active?: boolean }>`
   }
 
   ${media.mobile} {
-    font-size: 16px;
-    padding: 12px 0;
+    display: block;
+    font-size: 17px;
+    padding: 16px 8px;
     width: 100%;
-    display: flex;
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: rgba(255, 122, 157, 0.2);
   }
 `
 
@@ -159,6 +162,7 @@ const Word = styled.span`
   transform: translateY(1px);
   text-shadow: 0.5px 0 0 currentColor, -0.5px 0 0 currentColor;
   transition: color 0.15s;
+  pointer-events: none;
 `
 
 const Overlay = styled.div<{ $open: boolean }>`
