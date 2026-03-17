@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   height: 240px;
 
   ${media.mobile} {
-    height: 280px;
+    height: 200px;
   }
 `
 
@@ -29,7 +29,7 @@ const Root = styled.section`
   position: relative;
 
   ${media.mobile} {
-    height: 280px;
+    height: 200px;
   }
 `
 
@@ -72,8 +72,8 @@ const Inner = styled.div`
 
   ${media.mobile} {
     grid-template-columns: 1fr;
-    padding: 40px 24px 48px;
-    gap: 20px;
+    padding: 30px 24px 32px;
+    gap: 12px;
     align-items: center;
     justify-items: center;
   }
@@ -89,7 +89,7 @@ const Heading = styled.h1`
   white-space: pre-line;
 
   ${media.mobile} {
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
     line-height: 1.5;
   }
@@ -123,7 +123,7 @@ const Block = styled.img`
     drop-shadow(0 0 20px rgba(255, 110, 168, 0.3));
 
   ${media.mobile} {
-    width: 80px;
+    width: 70px;
   }
 `
 
