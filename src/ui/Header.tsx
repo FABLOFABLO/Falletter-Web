@@ -102,8 +102,7 @@ const Nav = styled.nav<{ $open: boolean }>`
     right: 0;
     width: 280px;
     height: 100vh;
-    background: rgba(15, 15, 17, 0.98);
-    backdrop-filter: blur(20px);
+    background: rgb(15, 15, 17);
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
