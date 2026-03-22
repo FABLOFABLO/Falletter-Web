@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import JiyunImg    from '../assets/member/정지윤.png'
 import DoeunImg    from '../assets/member/김도은.png'
 import JiyaImg     from '../assets/member/이지아.png'
-import SuinImg     from '../assets/member/김수인.png'
 import KangheeImg  from '../assets/member/이강희.png'
 import JiyunKimImg from '../assets/member/김지윤.png'
 import SuhyunImg   from '../assets/member/권수현.png'
@@ -39,7 +38,7 @@ const CURRENT: Generation[] = [
     cols: 2,
     members: [
       { name: '정지윤', role: '동아리장 & Flutter', email: 'jiyuni0303@dsm.hs.kr', image: JiyunImg, isLeader: true },
-      { name: '김도은', role: 'Front-End', email: 'qwaszx080402@dsm.hs.kr', image: DoeunImg },
+      { name: '김도은', role: 'FrontEnd', email: 'qwaszx080402@dsm.hs.kr', image: DoeunImg },
     ],
   },
   {
@@ -47,15 +46,8 @@ const CURRENT: Generation[] = [
     cols: 2,
     members: [
       { name: '이지아', role: 'Flutter', email: 'leejia0324@dsm.hs.kr', image: JiyaImg },
-      { name: '김수인', role: 'Design', email: 'tndlsuin@dsm.hs.kr', image: SuinImg },
-    ],
-  },
-  {
-    gen: '',
-    cols: 3,
-    members: [
-      { name: '이강희', role: 'Back-end', email: 'kanghee08@dsm.hs.kr', image: KangheeImg },
       { name: '김지윤', role: 'Back-end', email: 'jjunkim@dsm.hs.kr', image: JiyunKimImg },
+      { name: '이강희', role: 'Back-end', email: 'kanghee08@dsm.hs.kr', image: KangheeImg },
       { name: '권수현', role: 'Back-end', email: 'iokshoi0915@dsm.hs.kr', image: SuhyunImg },
     ],
   },
@@ -347,14 +339,6 @@ const IndDot = styled.button<{ $active: boolean }>`
   transition: all 0.3s ease;
 `
 
-const SpacedGrid = styled(MemberGrid)`
-  margin-bottom: 60px;
-
-  ${media.mobile} {
-    margin-bottom: 40px;
-  }
-`
-
 function MemberCardItem({ member }: { member: Member }) {
   return (
     <MemberCard>
@@ -398,7 +382,7 @@ export function Members() {
           {/* 10기 */}
           <GenSection ref={(el) => { refs.current[0] = el }}>
             <GenTitle>10기</GenTitle>
-            <MemberGrid $cols={CURRENT[0].cols}>
+            <MemberGrid $cols={2}>
               {CURRENT[0].members.map((m) => <MemberCardItem key={m.name} member={m} />)}
             </MemberGrid>
           </GenSection>
@@ -406,11 +390,8 @@ export function Members() {
           {/* 11기 */}
           <LastGenSection ref={(el) => { refs.current[1] = el }}>
             <GenTitle>11기</GenTitle>
-            <SpacedGrid $cols={CURRENT[1].cols}>
+            <MemberGrid $cols={2}>
               {CURRENT[1].members.map((m) => <MemberCardItem key={m.name} member={m} />)}
-            </SpacedGrid>
-            <MemberGrid $cols={CURRENT[2].cols}>
-              {CURRENT[2].members.map((m) => <MemberCardItem key={m.name} member={m} />)}
             </MemberGrid>
           </LastGenSection>
 
