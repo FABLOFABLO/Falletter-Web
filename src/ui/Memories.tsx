@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import Img1 from '../assets/memories/1.svg'
@@ -11,28 +11,18 @@ import Img7 from '../assets/memories/7.svg'
 import Img8 from '../assets/memories/8.svg'
 import Img9 from '../assets/memories/9.svg'
 
-import Detail1 from '../assets/memories/1_detail.svg'
-import Detail2 from '../assets/memories/2_detail.svg'
-import Detail3 from '../assets/memories/3_detail.svg'
-import Detail4 from '../assets/memories/4_detail.svg'
-import Detail5 from '../assets/memories/5_detail.svg'
-import Detail6 from '../assets/memories/6_detail.svg'
-import Detail7 from '../assets/memories/7_detail.svg'
-import Detail8 from '../assets/memories/8_detail.svg'
-import Detail9 from '../assets/memories/9_detail.svg'
-
 import { media } from '../styles/GlobalStyle'
 
 const MEMORIES = [
-  { thumb: Img1, detail: Detail1 },
-  { thumb: Img2, detail: Detail2 },
-  { thumb: Img3, detail: Detail3 },
-  { thumb: Img4, detail: Detail4 },
-  { thumb: Img5, detail: Detail5 },
-  { thumb: Img6, detail: Detail6 },
-  { thumb: Img7, detail: Detail7 },
-  { thumb: Img8, detail: Detail8 },
-  { thumb: Img9, detail: Detail9 },
+  { thumb: Img1, detail: new URL('../assets/memories/1_detail.svg', import.meta.url).href },
+  { thumb: Img2, detail: new URL('../assets/memories/2_detail.svg', import.meta.url).href },
+  { thumb: Img3, detail: new URL('../assets/memories/3_detail.svg', import.meta.url).href },
+  { thumb: Img4, detail: new URL('../assets/memories/4_detail.svg', import.meta.url).href },
+  { thumb: Img5, detail: new URL('../assets/memories/5_detail.svg', import.meta.url).href },
+  { thumb: Img6, detail: new URL('../assets/memories/6_detail.svg', import.meta.url).href },
+  { thumb: Img7, detail: new URL('../assets/memories/7_detail.svg', import.meta.url).href },
+  { thumb: Img8, detail: new URL('../assets/memories/8_detail.svg', import.meta.url).href },
+  { thumb: Img9, detail: new URL('../assets/memories/9_detail.svg', import.meta.url).href },
 ]
 
 const Root = styled.section`
@@ -124,11 +114,29 @@ const DetailImg = styled.img`
 
 export function Memories() {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          MEMORIES.forEach((mem) => {
+            const img = new Image()
+            img.src = mem.detail
+          })
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '200px' }
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
 
   const handleClose = () => setSelectedIdx(null)
 
   return (
-    <Root>
+    <Root ref={sectionRef}>
       <Title>추억</Title>
       <Wrap>
         <Grid>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -10,10 +10,11 @@ import { Footer } from './ui/Footer'
 import { FirstSlide } from './ui/FirstSlide'
 import { Meokblo } from './ui/Meokblo'
 import { Memories } from './ui/Memories'
-import { About } from './ui/About'
-import { Introduce } from './ui/Introduce'
-import { Members } from './ui/Members'
-import { Faq } from './ui/Faq'
+
+const About    = lazy(() => import('./ui/About').then(m => ({ default: m.About })))
+const Introduce = lazy(() => import('./ui/Introduce').then(m => ({ default: m.Introduce })))
+const Members  = lazy(() => import('./ui/Members').then(m => ({ default: m.Members })))
+const Faq      = lazy(() => import('./ui/Faq').then(m => ({ default: m.Faq })))
 
 const HERO_FADE_START = 80
 const HERO_FADE_END = 320
@@ -62,10 +63,10 @@ function HomePage() {
   )
 }
 
-const AboutPage     = () => <PageLayout><About /></PageLayout>
-const IntroducePage = () => <PageLayout><Introduce /></PageLayout>
-const MembersPage   = () => <PageLayout><Members /></PageLayout>
-const FaqPage       = () => <PageLayout><Faq /></PageLayout>
+const AboutPage     = () => <PageLayout><Suspense fallback={null}><About /></Suspense></PageLayout>
+const IntroducePage = () => <PageLayout><Suspense fallback={null}><Introduce /></Suspense></PageLayout>
+const MembersPage   = () => <PageLayout><Suspense fallback={null}><Members /></Suspense></PageLayout>
+const FaqPage       = () => <PageLayout><Suspense fallback={null}><Faq /></Suspense></PageLayout>
 
 function App() {
   return (
