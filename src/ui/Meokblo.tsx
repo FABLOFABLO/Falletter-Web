@@ -28,10 +28,10 @@ const ROW1: EventItem[] = [
 ]
 
 const ROW2: EventItem[] = [
-  { id: 'm10',  title: '요아정', month: '10월', images: [ImgYoa]     },
-  { id: 'm11',  title: '회식',   month: '11월', images: [ImgHoesik]  },
-  { id: 'm12a', title: '도넛',   month: '12월', images: [ImgDonut1]  },
-  { id: 'm12b', title: '도넛',   month: '12월', images: [ImgDonut2]  },
+  { id: 'm10',  title: '요아정', month: '10월', images: [ImgYoa]    },
+  { id: 'm11',  title: '회식',   month: '11월', images: [ImgHoesik] },
+  { id: 'm12a', title: '도넛',   month: '12월', images: [ImgDonut1] },
+  { id: 'm12b', title: '도넛',   month: '12월', images: [ImgDonut2] },
 ]
 
 const Root = styled.section`
@@ -68,39 +68,33 @@ const Wrap = styled.div`
   gap: 48px;
 
   ${media.mobile} {
-    padding: 0 24px;
+    padding: 0 20px;
     gap: 32px;
   }
 `
 
-const RowWrap    = styled.div`
+// PC 레이아웃
+const RowWrap = styled.div`
   display: flex;
   flex-direction: column;
-`
-const CardRow    = styled.div`
-  display: flex;
-  align-items: flex-start;
-
-  ${media.mobile} {
-    flex-direction: column;
-    gap: 24px;
-  }
-`
-const MonthRow   = styled.div`
-  display: flex;
-
-  ${media.mobile} {
-    flex-direction: column;
-    gap: 0;
-  }
-`
-const RailRow    = styled.div`
-  display: flex;
-  margin-top: 10px;
 
   ${media.mobile} {
     display: none;
   }
+`
+
+const CardRow = styled.div`
+  display: flex;
+  align-items: flex-start;
+`
+
+const MonthRow = styled.div`
+  display: flex;
+`
+
+const RailRow = styled.div`
+  display: flex;
+  margin-top: 10px;
 `
 
 const Card = styled.article<{ $indent: number }>`
@@ -108,11 +102,6 @@ const Card = styled.article<{ $indent: number }>`
   min-width: 0;
   overflow: hidden;
   padding: 0 16px 0 ${(p) => p.$indent}px;
-
-  ${media.mobile} {
-    padding: 0;
-    width: 100%;
-  }
 `
 
 const DashedBorder = styled.div`
@@ -120,12 +109,6 @@ const DashedBorder = styled.div`
   flex-direction: row;
   align-items: flex-start;
   gap: 10px;
-
-  ${media.mobile} {
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-  }
 `
 
 const DashedLineImg = styled.img<{ $h: number }>`
@@ -134,10 +117,6 @@ const DashedLineImg = styled.img<{ $h: number }>`
   object-fit: fill;
   flex-shrink: 0;
   display: block;
-
-  ${media.mobile} {
-    display: none;
-  }
 `
 
 const CardTitle = styled.h3`
@@ -147,11 +126,6 @@ const CardTitle = styled.h3`
   font-size: 15px;
   line-height: 1.3;
   color: #fff;
-
-  ${media.mobile} {
-    font-size: 14px;
-    margin: 0 0 8px;
-  }
 `
 
 const ImgGrid = styled.div<{ $cols: number; $size: number }>`
@@ -159,11 +133,6 @@ const ImgGrid = styled.div<{ $cols: number; $size: number }>`
   grid-template-columns: repeat(${(p) => p.$cols}, minmax(0, ${(p) => p.$size}px));
   gap: 8px;
   max-width: 100%;
-
-  ${media.mobile} {
-    grid-template-columns: repeat(${(p) => p.$cols}, 1fr);
-    gap: 6px;
-  }
 `
 
 const ImgBox = styled.div<{ $size: number }>`
@@ -180,11 +149,6 @@ const ImgBox = styled.div<{ $size: number }>`
     height: 100% !important;
     object-fit: cover;
     display: block;
-  }
-
-  ${media.mobile} {
-    max-width: 100%;
-    border-radius: 6px;
   }
 `
 
@@ -218,11 +182,6 @@ const Dot = styled.div<{ $indent: number }>`
 const MonthCell = styled.div<{ $indent: number }>`
   flex: 1;
   padding: 5px 0 0 ${(p) => p.$indent}px;
-
-  ${media.mobile} {
-    padding: 8px 0 0;
-    margin-bottom: 8px;
-  }
 `
 
 const Month = styled.p`
@@ -230,10 +189,60 @@ const Month = styled.p`
   font-size: 13px;
   font-weight: 600;
   color: #ff7a9d;
+`
+
+// 모바일 전용
+const MobileGrid = styled.div`
+  display: none;
 
   ${media.mobile} {
-    font-size: 13px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
+`
+
+const MobileCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`
+
+const MobileImgGrid = styled.div<{ $cols: number }>`
+  display: grid;
+  grid-template-columns: repeat(${(p) => p.$cols}, 1fr);
+  gap: 6px;
+  width: 100%;
+`
+
+const MobileImgBox = styled.div`
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #1a1a1c;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+`
+
+const MobileCardTitle = styled.h3`
+  margin: 0;
+  font-family: Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: #fff;
+`
+
+const MobileMonth = styled.p`
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ff7a9d;
 `
 
 interface EventRowProps {
@@ -246,43 +255,63 @@ function EventRow({ events, indent, imgSize }: EventRowProps) {
   const lineH = 20 + 8 + imgSize
 
   return (
-    <RowWrap>
-      <CardRow>
-        {events.map((e) => (
-          <Card key={e.id} $indent={indent}>
-            <DashedBorder>
-              <DashedLineImg src={LineDot} alt="" $h={lineH} />
-              <div>
-                <CardTitle>{e.title}</CardTitle>
-                <ImgGrid $cols={e.images.length === 2 ? 2 : 1} $size={imgSize}>
-                  {e.images.map((src, i) => (
-                    <ImgBox key={i} $size={imgSize}>
-                      <img src={src} alt={e.title} />
-                    </ImgBox>
-                  ))}
-                </ImgGrid>
-              </div>
-            </DashedBorder>
-          </Card>
-        ))}
-      </CardRow>
+    <>
+      {/* PC */}
+      <RowWrap>
+        <CardRow>
+          {events.map((e) => (
+            <Card key={e.id} $indent={indent}>
+              <DashedBorder>
+                <DashedLineImg src={LineDot} alt="" $h={lineH} />
+                <div>
+                  <CardTitle>{e.title}</CardTitle>
+                  <ImgGrid $cols={e.images.length === 2 ? 2 : 1} $size={imgSize}>
+                    {e.images.map((src, i) => (
+                      <ImgBox key={i} $size={imgSize}>
+                        <img src={src} alt={e.title} />
+                      </ImgBox>
+                    ))}
+                  </ImgGrid>
+                </div>
+              </DashedBorder>
+            </Card>
+          ))}
+        </CardRow>
 
-      <RailRow>
-        {events.map((e) => (
-          <RailCell key={e.id}>
-            <Dot $indent={indent} />
-          </RailCell>
-        ))}
-      </RailRow>
+        <RailRow>
+          {events.map((e) => (
+            <RailCell key={e.id}>
+              <Dot $indent={indent} />
+            </RailCell>
+          ))}
+        </RailRow>
 
-      <MonthRow>
+        <MonthRow>
+          {events.map((e) => (
+            <MonthCell key={e.id} $indent={indent}>
+              <Month>{e.month}</Month>
+            </MonthCell>
+          ))}
+        </MonthRow>
+      </RowWrap>
+
+      {/* 모바일 */}
+      <MobileGrid>
         {events.map((e) => (
-          <MonthCell key={e.id} $indent={indent}>
-            <Month>{e.month}</Month>
-          </MonthCell>
+          <MobileCard key={e.id}>
+            <MobileCardTitle>{e.title}</MobileCardTitle>
+            <MobileImgGrid $cols={e.images.length === 2 ? 2 : 1}>
+              {e.images.map((src, i) => (
+                <MobileImgBox key={i}>
+                  <img src={src} alt={e.title} />
+                </MobileImgBox>
+              ))}
+            </MobileImgGrid>
+            <MobileMonth>{e.month}</MobileMonth>
+          </MobileCard>
         ))}
-      </MonthRow>
-    </RowWrap>
+      </MobileGrid>
+    </>
   )
 }
 
