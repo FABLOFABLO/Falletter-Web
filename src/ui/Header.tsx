@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 import logoUrl from '../assets/logo.svg'
 import { media } from '../styles/GlobalStyle'
@@ -79,41 +80,68 @@ const MenuLine = styled.span<{ $open: boolean }>`
   border-radius: 2px;
 
   ${(p) => p.$open && `
-    &:nth-child(1) {
-      transform: rotate(45deg) translate(7px, 7px);
-    }
-    &:nth-child(2) {
-      opacity: 0;
-    }
-    &:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
+    &:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+    &:nth-child(2) { opacity: 0; }
+    &:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
   `}
 `
 
-const Nav = styled.nav<{ $open: boolean }>`
+// PC용 Nav (헤더 안에 위치)
+const DesktopNav = styled.nav`
   display: flex;
   align-items: center;
   gap: 62px;
 
   ${media.mobile} {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 280px;
-    height: 100vh;
-    background: rgb(15, 15, 17);
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 100px 32px 32px;
-    gap: 4px;
-    transform: translateX(${(p) => (p.$open ? '0' : '100%')});
-    transition: transform 0.3s ease;
-    z-index: 1001;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    visibility: ${(p) => (p.$open ? 'visible' : 'hidden')};
+    display: none;
   }
+`
+
+// 모바일용 드로어 (Portal로 body에 마운트)
+const MobileDrawer = styled.nav<{ $open: boolean }>`
+  position: fixed;
+  top: 0;
+  right: ${(p) => (p.$open ? '0' : '-280px')};
+  width: 280px;
+  height: 100vh;
+  background: #0f0f11;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 100px 32px 32px;
+  gap: 4px;
+  transition: right 0.3s ease;
+  z-index: 9999;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+`
+
+const CloseButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+  }
+
+  &::before { transform: rotate(45deg); }
+  &::after  { transform: rotate(-45deg); }
 `
 
 const StyledNavLink = styled(Link)<{ $active?: boolean }>`
@@ -137,19 +165,32 @@ const StyledNavLink = styled(Link)<{ $active?: boolean }>`
   &:hover span {
     color: #ff7a9d;
   }
+`
 
-  ${media.mobile} {
-    display: flex;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 18px 12px;
-    width: 100%;
-    border-radius: 8px;
-    background: ${(p) => (p.$active ? 'rgba(255, 122, 157, 0.1)' : 'transparent')};
+const MobileNavLink = styled(Link)<{ $active?: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 18px 12px;
+  width: 100%;
+  border-radius: 8px;
+  text-decoration: none;
+  color: ${(p) => (p.$active ? '#ff7a9d' : '#ffffff')};
+  background: ${(p) => (p.$active ? 'rgba(255, 122, 157, 0.1)' : 'transparent')};
+  transition: color 0.15s, background 0.15s;
 
-    &:active {
-      background: rgba(255, 122, 157, 0.2);
-    }
+  span {
+    color: ${(p) => (p.$active ? '#ff7a9d' : '#ffffff')};
+  }
+
+  &:hover,
+  &:active {
+    color: #ff7a9d;
+    background: rgba(255, 122, 157, 0.1);
+    span { color: #ff7a9d; }
   }
 `
 
@@ -169,20 +210,14 @@ const Word = styled.span`
 `
 
 const Overlay = styled.div<{ $open: boolean }>`
-  display: none;
-  pointer-events: none;
-
-  ${media.mobile} {
-    display: ${(p) => (p.$open ? 'block' : 'none')};
-    pointer-events: ${(p) => (p.$open ? 'auto' : 'none')};
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9998;
+  display: ${(p) => (p.$open ? 'block' : 'none')};
 `
 
 export function TopNav() {
@@ -193,7 +228,6 @@ export function TopNav() {
 
   return (
     <>
-      <Overlay $open={menuOpen} onClick={closeMenu} />
       <Root>
         <Inner>
           <Brand to="/" aria-label="홈으로" onClick={closeMenu}>
@@ -206,16 +240,34 @@ export function TopNav() {
             <MenuLine $open={menuOpen} />
           </MenuButton>
 
-          <Nav $open={menuOpen} aria-label="메인 메뉴">
+          {/* PC 전용 */}
+          <DesktopNav aria-label="메인 메뉴">
             {NAV_LINKS.map(({ to, label, prefix }) => (
-              <StyledNavLink key={to} to={to} $active={pathname === to} onClick={closeMenu}>
+              <StyledNavLink key={to} to={to} $active={pathname === to}>
                 {prefix && <Word>{prefix}</Word>}
                 {label}
               </StyledNavLink>
             ))}
-          </Nav>
+          </DesktopNav>
         </Inner>
       </Root>
+
+      {/* 모바일 드로어 - Portal로 body에 직접 마운트 */}
+      {createPortal(
+        <>
+          <Overlay $open={menuOpen} onClick={closeMenu} />
+          <MobileDrawer $open={menuOpen} aria-label="메인 메뉴">
+            <CloseButton onClick={closeMenu} aria-label="메뉴 닫기" />
+            {NAV_LINKS.map(({ to, label, prefix }) => (
+              <MobileNavLink key={to} to={to} $active={pathname === to} onClick={closeMenu}>
+                {prefix && <Word>{prefix}</Word>}
+                {label}
+              </MobileNavLink>
+            ))}
+          </MobileDrawer>
+        </>,
+        document.body
+      )}
     </>
   )
 }
