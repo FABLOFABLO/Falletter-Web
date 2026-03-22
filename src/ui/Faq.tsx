@@ -6,9 +6,26 @@ import ChevronDownImg from '../assets/faq/chevron-down.svg'
 import { media } from '../styles/GlobalStyle'
 
 const FAQ_ITEMS = [
-  { q: 'FABLO 지원은 어디서 하나요?',  a: 'https://forms.gle/xrXgseHCsEUk2YHH7', isLink: true },
-  { q: 'FABLO는 몇 명인가요?',         a: '현재 재학생 7명입니다.',                isLink: false },
-  { q: '어떤 분야를 뽑나요?',          a: 'Backend, Flutter, Design, Frontend 지원받습니다.', isLink: false },
+  {
+    q: 'FABLO에서 원하는 인재상은 무엇인가요?',
+    a: '실력이 완벽하지 않아도 괜찮습니다. 대신, 같이 성장하며 배우려는 의지와 팀원들과 적극적으로 소통하려는 자세를 가장 중요하게 생각합니다.',
+    isLink: false,
+  },
+  {
+    q: '동아리의 분위기는 어떤가요?',
+    a: '선후배 간 거리감 없이 편하게 지내며, 모르는 부분이 있으면 부담 없이 질문하고 서로 도와주는 문화가 잘 형성되어 있습니다.',
+    isLink: false,
+  },
+  {
+    q: 'FABLO는 몇 명인가요?',
+    a: '현재 재학생 6명입니다.',
+    isLink: false,
+  },
+  {
+    q: '어떤 분야를 뽑나요?',
+    a: 'Backend, Flutter, Frontend 지원받습니다.',
+    isLink: false,
+  },
 ]
 
 const Root = styled.section`
