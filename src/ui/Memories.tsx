@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 
 import Img1 from '../assets/memories/1.svg'
@@ -8,9 +9,31 @@ import Img5 from '../assets/memories/5.svg'
 import Img6 from '../assets/memories/6.svg'
 import Img7 from '../assets/memories/7.svg'
 import Img8 from '../assets/memories/8.svg'
+import Img9 from '../assets/memories/9.svg'
+
+import Detail1 from '../assets/memories/1_detail.svg'
+import Detail2 from '../assets/memories/2_detail.svg'
+import Detail3 from '../assets/memories/3_detail.svg'
+import Detail4 from '../assets/memories/4_detail.svg'
+import Detail5 from '../assets/memories/5_detail.svg'
+import Detail6 from '../assets/memories/6_detail.svg'
+import Detail7 from '../assets/memories/7_detail.svg'
+import Detail8 from '../assets/memories/8_detail.svg'
+import Detail9 from '../assets/memories/9_detail.svg'
+
 import { media } from '../styles/GlobalStyle'
 
-const MEMORIES = [Img1, Img2, Img3, Img4, Img5, Img6, Img7, Img8]
+const MEMORIES = [
+  { thumb: Img1, detail: Detail1 },
+  { thumb: Img2, detail: Detail2 },
+  { thumb: Img3, detail: Detail3 },
+  { thumb: Img4, detail: Detail4 },
+  { thumb: Img5, detail: Detail5 },
+  { thumb: Img6, detail: Detail6 },
+  { thumb: Img7, detail: Detail7 },
+  { thumb: Img8, detail: Detail8 },
+  { thumb: Img9, detail: Detail9 },
+]
 
 const Root = styled.section`
   width: 100%;
@@ -64,6 +87,13 @@ const Card = styled.div`
   background: #1a1a1c;
   width: 100%;
   aspect-ratio: 16 / 9;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+
+  &:hover {
+    transform: scale(1.02);
+    opacity: 0.85;
+  }
 
   img {
     width: 100%;
@@ -73,19 +103,52 @@ const Card = styled.div`
   }
 `
 
+const Overlay = styled.div<{ $visible: boolean }>`
+  display: ${(p) => (p.$visible ? 'flex' : 'none')};
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(39, 39, 39, 0.80);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+`
+
+const DetailImg = styled.img`
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 16px;
+`
+
 export function Memories() {
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null)
+
+  const handleClose = () => setSelectedIdx(null)
+
   return (
     <Root>
       <Title>추억</Title>
       <Wrap>
         <Grid>
-          {MEMORIES.map((src, i) => (
-            <Card key={i}>
-              <img src={src} alt={`추억 ${i + 1}`} />
+          {MEMORIES.map((mem, i) => (
+            <Card key={i} onClick={() => setSelectedIdx(i)}>
+              <img src={mem.thumb} alt={`추억 ${i + 1}`} />
             </Card>
           ))}
         </Grid>
       </Wrap>
+
+      <Overlay $visible={selectedIdx !== null} onClick={handleClose}>
+        {selectedIdx !== null && (
+          <DetailImg
+            src={MEMORIES[selectedIdx].detail}
+            alt={`추억 ${selectedIdx + 1} 상세`}
+            onClick={(e) => e.stopPropagation()}
+          />
+        )}
+      </Overlay>
     </Root>
   )
 }
